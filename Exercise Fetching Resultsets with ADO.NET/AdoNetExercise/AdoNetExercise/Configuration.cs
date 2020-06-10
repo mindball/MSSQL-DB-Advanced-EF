@@ -6,7 +6,7 @@ namespace AdoNetExercise
 {
     public class Configuration
     {
-        public const string ConnectionString = 
-            "Server=10.148.73.5;"
+        public const string ConnectionString =
+             @"Server=10.148.73.5;Database=MinionsDB;User=sa;Password=Q1w2e3r4";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace AdoNetExercise
@@ -7,7 +8,10 @@ namespace AdoNetExercise
     {
         static void Main(string[] args)
         {
-            
+
+            Exercise2_VilianNames.GetVilianNames();
+
+
         }
     }
 }
