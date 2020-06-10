@@ -11,7 +11,7 @@ namespace AdoNetExercise
 
             Exercise2_VilianNames.GetVilianNames();
 
-
+            Exercise3_MinionNames.GetVilianNames();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace AdoNetExercise
                             vilians.Enqueue(
                                 new Villains()
                                 {
-                                    Name = reader[0].ToString(),
+                                    Name = (string)reader[0],
                                     CountOfMinios = (int)reader[1]
                                 });
                         }
