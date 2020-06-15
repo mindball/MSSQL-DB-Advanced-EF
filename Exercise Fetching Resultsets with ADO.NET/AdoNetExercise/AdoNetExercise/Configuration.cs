@@ -27,6 +27,7 @@ namespace AdoNetExercise
                         $"SELECT Id FROM {tableName} WHERE Name = @criteria";
                     //command.Parameters.AddWithValue("@fromTable", tableName);
                     command.Parameters.AddWithValue("@criteria", criteria);
+
                 }
                 else
                 {
@@ -39,6 +40,33 @@ namespace AdoNetExercise
                 return id;
             }
 
+        }
+
+        public static void InsertInToRelatedTableMinionAndVillain(
+            SqlConnection connection, int? minionId, int? villainId)
+        {
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+
+            using (command = new SqlCommand())
+            {
+                command.Connection = connection;
+
+                command.CommandText =
+                    $"Insert INTO MinionsVillains (MinionId, VillainId) Values (@minionId, @villainId)";  
+                command.Parameters.AddWithValue("@minionId", minionId);
+                command.Parameters.AddWithValue("@villainId", villainId);
+                command.ExecuteNonQuery();
+
+                command.CommandText = "SELECT Name FROM Minions WHERE @minionId = Id";
+                string minion = (string)command.ExecuteScalar();
+
+                command.CommandText = "SELECT Name FROM Villain WHERE @villainId = Id";
+                string villain = (string)command.ExecuteScalar();
+
+                Console.WriteLine(
+                    $"Successfully added {minion} to be minion of {villain}.");
+            }
         }
     }
 }

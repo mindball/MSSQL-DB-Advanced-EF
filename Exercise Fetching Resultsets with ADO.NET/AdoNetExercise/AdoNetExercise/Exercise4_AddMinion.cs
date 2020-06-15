@@ -58,7 +58,10 @@ namespace AdoNetExercise
                         //default evilness value = evil with id 4
                         AddVillain(connection, vilianName, 4);
                     }
-                    ;
+
+
+                    Configuration.InsertInToRelatedTableMinionAndVillain(
+                        connection, getMinionID, getVillainId);
                 }
             }
         }
