@@ -9,11 +9,13 @@ namespace AdoNetExercise
         static void Main(string[] args)
         {
 
-            Exercise4_AddMinion.Addminion();
+            Exercise5_ChangeTownNamesCasing.ChangeTownNamesCasing();
 
-            Exercise2_VilianNames.GetVilianNames();
+            //Exercise4_AddMinion.Addminion();
 
-            Exercise3_MinionNames.GetVilianNames();
+            //Exercise2_VilianNames.GetVilianNames();
+
+            //Exercise3_MinionNames.GetVilianNames();
 
         }
     }
