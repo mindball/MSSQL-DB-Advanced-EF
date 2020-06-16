@@ -12,8 +12,10 @@ namespace AdoNetExercise
 
         private int EvilnessFactorId { get; set; }
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public long RowNumber { get; set; }
+
+        public int? TownId { get; set; }
     }
 }

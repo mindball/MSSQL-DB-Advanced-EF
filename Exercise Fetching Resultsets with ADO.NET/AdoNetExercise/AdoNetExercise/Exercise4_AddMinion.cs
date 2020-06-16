@@ -34,37 +34,96 @@ namespace AdoNetExercise
                     //Looking for Towns
                     Towns town = GetTown(connection, townName); 
 
-                    //Lookinh for Minion
-                    int? getMinionID = Configuration
-                        .GetIdFromMinionDB(connection, "Minions", minionName);
+                    //Looking for Minion
+                    Minions minion = GetMinion(connection, minionName, age, town);
 
-                    if (getMinionID is null)
-                    {
-                        //AddMinion(connection, minionName, age, getTownID);
-                    }
-
-                    //Lookinh for Villain
-                    int? getVillainId = Configuration
-                        .GetIdFromMinionDB(connection, "Villains", vilianName);
-
-                    if (getVillainId is null)
-                    {
-                        //default evilness value = evil with id 4
-                        AddVillain(connection, vilianName, 4);
-                    }
+                    //Looking for Villain
+                    Villains villain = GetVillain(connection, vilianName);                  
 
 
                     Configuration.InsertInToRelatedTableMinionAndVillain(
-                        connection, getMinionID, getVillainId);
+                        connection, minion.Id, villain.Id);
                 }
             }
         }
 
+        private static Villains GetVillain(SqlConnection connection, string villainName)
+        {
+            Villains villain = new Villains();
+
+            string getVillain =
+                Configuration.GetNameFromMinionDB(connection, "Villains", villainName);
+            if(getVillain is null)
+            {
+                //default evilness value = evil with id 4
+                AddVillain(connection, villainName, 4);
+            }
+
+            int? villainId =
+                Configuration.GetIdFromMinionDB(connection, "Villains", villainName);
+
+            SqlCommand command = new SqlCommand();
+            using (command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM Villains WHERE Id = @villainId";
+                command.Parameters.AddWithValue("@villainId", villainId);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        villain.Id = (int)reader[0];
+                        villain.Name = (string)reader[1];
+                        villain.EvilnessFactorId = Convert.IsDBNull(reader[2]) ? null : (int?)reader[2];                       
+                    }
+                }
+            }
+
+            return villain;
+        }
+
+        private static Minions GetMinion(SqlConnection connection, 
+            string minionName, int age, Towns town)
+        {
+            string getMinionName = Configuration
+                        .GetNameFromMinionDB(connection, "Minions", minionName);
+
+            if (getMinionName is null)
+            {
+                AddMinion(connection, minionName, age, town);
+            }
+
+            int? minionId = Configuration.GetIdFromMinionDB(connection, "Minions", minionName);
+            Minions minion = new Minions();
+
+            SqlCommand command = new SqlCommand();
+            using (command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = "SELECT * FROM Minions WHERE Id = @minionId";
+                command.Parameters.AddWithValue("@minionId", minionId);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        minion.Id = (int)reader[0];
+                        minion.Name = (string)reader[1];
+                        minion.Age = Convert.IsDBNull(reader[2]) ? null : (int?)reader[2];
+                        minion.TownId = Convert.IsDBNull(reader[3]) ? null : (int?)reader[3];
+                    }
+                }
+            }
+
+            return minion;
+        }
+
         private static Towns GetTown(SqlConnection connection, string townName)
         {
-            int? getTownID = (int?)Configuration.GetIdFromMinionDB(connection, "Towns", townName);
+            string getTownName = Configuration.GetNameFromMinionDB(connection, "Towns", townName);
 
-            if (getTownID is null)
+            if (getTownName is null)
             {
                 AddTown(townName, connection);
             }
@@ -75,8 +134,8 @@ namespace AdoNetExercise
             using (command = new SqlCommand())
             {
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM Towns WHERE Id = @townId";
-                command.Parameters.AddWithValue("@townId", getTownID);
+                command.CommandText = "SELECT * FROM Towns WHERE Name = @name";
+                command.Parameters.AddWithValue("@name", townName);
                 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -115,7 +174,7 @@ namespace AdoNetExercise
         }
 
         private static void AddMinion(SqlConnection connection,
-            string minionName, int Age, int? townId)
+            string minionName, int Age, Towns town)
         {
 
             SqlCommand command = new SqlCommand();
@@ -129,7 +188,7 @@ namespace AdoNetExercise
                     $"Insert INTO Minions (Name, Age, TownId) Values (@name, @age, @townId)";
                 command.Parameters.AddWithValue("@name", minionName);
                 command.Parameters.AddWithValue("@age", Age);
-                command.Parameters.AddWithValue("@townId", townId);
+                command.Parameters.AddWithValue("@townId", town.Id);
 
                 command.ExecuteNonQuery();
             }

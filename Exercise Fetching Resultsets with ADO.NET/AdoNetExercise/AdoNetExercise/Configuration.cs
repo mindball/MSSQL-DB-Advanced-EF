@@ -21,25 +21,29 @@ namespace AdoNetExercise
             {
                command.Connection = connection;
 
-                if (criteria != null)
-                {
-                    command.CommandText =
+                command.CommandText =
                         $"SELECT Id FROM {tableName} WHERE Name = @criteria";
-                    //command.Parameters.AddWithValue("@fromTable", tableName);
-                    command.Parameters.AddWithValue("@criteria", criteria);
+                //command.Parameters.AddWithValue("@fromTable", tableName);
+                command.Parameters.AddWithValue("@criteria", criteria);
+                //if (criteria != null)
+                //{
+                //    command.CommandText =
+                //        $"SELECT Id FROM {tableName} WHERE Name = @criteria";
+                //    //command.Parameters.AddWithValue("@fromTable", tableName);
+                //    command.Parameters.AddWithValue("@criteria", criteria);
 
-                }
-                else
-                {
-                    command.CommandText =
-                        $"SELECT Id FROM {tableName}";
-                    //command.Parameters.AddWithValue("@fromTable", tableName);
-                }
+                //}
+                //else
+                //{
+                //    command.CommandText =
+                //        $"SELECT Id FROM {tableName}";
+                //    //command.Parameters.AddWithValue("@fromTable", tableName);
+                //}
 
                 id = (int?)command.ExecuteScalar();
-                return id;
+               
             }
-
+            return id;
         }
 
         public static void InsertInToRelatedTableMinionAndVillain(
@@ -67,6 +71,26 @@ namespace AdoNetExercise
                 Console.WriteLine(
                     $"Successfully added {minion} to be minion of {villain}.");
             }
+        }
+
+        public static string GetNameFromMinionDB(SqlConnection connection,
+            string tableName, string criteria)
+        {
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            string name;
+
+            using (command = new SqlCommand())
+            {
+                command.Connection = connection;
+
+                command.CommandText =
+                        $"SELECT Name FROM {tableName} WHERE Name = @criteria";               
+                command.Parameters.AddWithValue("@criteria", criteria);
+                name = (string)command.ExecuteScalar();
+            }
+
+            return name;
         }
     }
 }

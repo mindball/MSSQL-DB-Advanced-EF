@@ -15,7 +15,7 @@ namespace AdoNetExercise
 
         public string Name { get; set; }
 
-        private  int  EvilnessFactorId { get; set; }
+        public int?  EvilnessFactorId { get; set; }
 
         public int CountOfMinios { get; set; }
 
