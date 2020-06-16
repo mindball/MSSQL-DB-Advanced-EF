@@ -4,7 +4,12 @@ using System.Text;
 
 namespace AdoNetExercise
 {
-    class Towns
+    public class Towns
     {
+        public int Id { get; set; }
+
+        public string  Name { get; set; }
+
+        public int? CountryCode { get; set; }
     }
 }

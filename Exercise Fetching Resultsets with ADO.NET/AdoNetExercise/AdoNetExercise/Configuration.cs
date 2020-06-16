@@ -61,7 +61,7 @@ namespace AdoNetExercise
                 command.CommandText = "SELECT Name FROM Minions WHERE @minionId = Id";
                 string minion = (string)command.ExecuteScalar();
 
-                command.CommandText = "SELECT Name FROM Villain WHERE @villainId = Id";
+                command.CommandText = "SELECT Name FROM Villains WHERE @villainId = Id";
                 string villain = (string)command.ExecuteScalar();
 
                 Console.WriteLine(
