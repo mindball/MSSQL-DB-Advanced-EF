@@ -51,12 +51,7 @@ namespace AdoNetExercise
             else
             {
                 Console.WriteLine($"{towns.Count} town names were affected.");
-                Console.Write("[");
-                foreach (var town in towns)
-                {
-                    Console.Write(town.Name + " ");
-                }
-                Console.Write("]");
+                Console.WriteLine("[" + string.Join(',', towns).ToUpper() + "]");
             }
         }
     }

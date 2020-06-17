@@ -11,5 +11,10 @@ namespace AdoNetExercise
         public string  Name { get; set; }
 
         public int? CountryCode { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

@@ -80,13 +80,26 @@ namespace AdoNetExercise
             command.Connection = connection;
             string name;
 
+           
+
             using (command = new SqlCommand())
             {
                 command.Connection = connection;
 
-                command.CommandText =
-                        $"SELECT Name FROM {tableName} WHERE Name = @criteria";               
-                command.Parameters.AddWithValue("@criteria", criteria);
+                int parseStringToId;
+                if (int.TryParse(criteria, out parseStringToId))
+                {
+                    command.CommandText =
+                        $"SELECT Name FROM {tableName} WHERE Id = @criteria";
+                    command.Parameters.AddWithValue("@criteria", parseStringToId);
+                }
+                else
+                {
+                    command.CommandText =
+                        $"SELECT Name FROM {tableName} WHERE Name = @criteria";
+                    command.Parameters.AddWithValue("@criteria", criteria);
+                }
+                    
                 name = (string)command.ExecuteScalar();
             }
 

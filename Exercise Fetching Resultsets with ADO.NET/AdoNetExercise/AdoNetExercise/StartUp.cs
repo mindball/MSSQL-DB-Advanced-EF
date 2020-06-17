@@ -8,8 +8,9 @@ namespace AdoNetExercise
     {
         static void Main(string[] args)
         {
+            Exercise6_RemoveVillain.RemoveVillains();
 
-            Exercise5_ChangeTownNamesCasing.ChangeTownNamesCasing();
+            //Exercise5_ChangeTownNamesCasing.ChangeTownNamesCasing();
 
             //Exercise4_AddMinion.Addminion();
 
