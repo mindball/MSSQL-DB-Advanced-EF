@@ -16,7 +16,7 @@ Applicable to an environment where the database is constantly available
 Needs a constant reliable network
 Problems when scalability is an issue
 ```
-#ADO.NET Architecture
+# ADO.NET Architecture
 ## ADO.NET is a standard .NET class library for accessing databases, processing data and XML
 ## Supports connected, disconnected and ORM data access models
 ```

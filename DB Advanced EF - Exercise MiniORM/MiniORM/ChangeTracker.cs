@@ -67,7 +67,7 @@ namespace MiniORM
         private bool IsModified(T proxyEntity, T entity)
         {
             var monitoredProperties = typeof(T).GetProperties()
-                .Where(pi => DbContex.AllowedSqlTypes.Contains(pi.PropertyType));
+                .Where(pi => DbContext.AllowedSqlTypes.Contains(pi.PropertyType));
 
             var modifiedProperties = monitoredProperties
                 .Where(p => !Equals(p.GetValue(entity), p.GetValue(proxyEntity)));
@@ -88,7 +88,7 @@ namespace MiniORM
             var clonedEntities = new List<T>();
 
             var propertiesToClone = typeof(T).GetProperties()
-                .Where(p => DbContex.AllowedSqlTypes.Contains(p.PropertyType))
+                .Where(p => DbContext.AllowedSqlTypes.Contains(p.PropertyType))
                 .ToArray();
 
             foreach (var entity in entities)

@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace MiniORM
 {
-    public abstract class DbContex
+    public abstract class DbContext
     {
         private readonly DatabaseConnection connection;
         private readonly Dictionary<Type, PropertyInfo> dbSetProperties;
@@ -26,7 +26,7 @@ namespace MiniORM
                 typeof(ulong)
             };
 
-        protected DbContex(string connectionString)
+        protected DbContext(string connectionString)
         {
             this.connection = new DatabaseConnection(connectionString);
             this.dbSetProperties = this.DiscoverDbSets();
@@ -65,7 +65,7 @@ namespace MiniORM
                     {
                         var dbSetType = dbSet.GetType().GetGenericArguments().First();
 
-                        var persistMethod = typeof(DbContex)
+                        var persistMethod = typeof(DbContext)
                             .GetMethod("Persist", BindingFlags.NonPublic | BindingFlags.Instance)
                             .MakeGenericMethod(dbSetType);
 
@@ -143,7 +143,7 @@ namespace MiniORM
                 var dbSetType = dbSet.Key;
                 var dbSetProperty = dbSet.Value;
 
-                var populateDbSetGeneric = typeof(DbContex)
+                var populateDbSetGeneric = typeof(DbContext)
                     .GetMethod("PopulateDbSet", BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(dbSetType);
 
@@ -151,7 +151,7 @@ namespace MiniORM
             }
         }
 
-        private void PopulateDbSet<TEntity>(DbSet<TEntity> dbSet)
+        private void PopulateDbSet<TEntity>(PropertyInfo dbSet)
             where TEntity : class, new()
         {
             var entities = LoadTableEntities<TEntity>();
@@ -195,7 +195,7 @@ namespace MiniORM
             {
                 var dbSetType = dbSetProperty.Key;
 
-                var mapRelationGeneric = typeof(DbContex)
+                var mapRelationGeneric = typeof(DbContext)
                     .GetMethod("MapRelations", BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(dbSetType);
 
@@ -221,7 +221,7 @@ namespace MiniORM
             {
                 var collectionType = collection.PropertyType.GenericTypeArguments.First();
 
-                var mapCollectionMethod = typeof(DbContex)
+                var mapCollectionMethod = typeof(DbContext)
                     .GetMethod("MapCollection", BindingFlags.Instance | BindingFlags.NonPublic)
                     .MakeGenericMethod(entityType, collectionType);
 
