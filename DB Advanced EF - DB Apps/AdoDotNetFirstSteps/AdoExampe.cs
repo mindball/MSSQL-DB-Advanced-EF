@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 class AdoExample
 {
     const string connectionString =
-        @"Server=10.148.73.5;Database=SoftUni;User=sa;Password=Q1w2e3r4";
+        @"Server=;Database=SoftUni;User=sa;Password=";
     static void Main(string[] args)
     {
         SqlConnection connection;
