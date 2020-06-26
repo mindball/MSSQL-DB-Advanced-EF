@@ -121,6 +121,8 @@ namespace Lesson
                 context.Projects.Add(newProject);
                 context.SaveChanges();
 
+                Console.WriteLine();
+
             }
         }
     }
