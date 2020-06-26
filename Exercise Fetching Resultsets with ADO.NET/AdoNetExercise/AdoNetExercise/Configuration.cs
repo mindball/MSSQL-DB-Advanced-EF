@@ -8,7 +8,7 @@ namespace AdoNetExercise
     public class Configuration
     {
         public const string ConnectionString =
-             @"Server=10.148.73.5;Database=MinionsDB;User=sa;Password=Q1w2e3r4";
+             @"Server=;Database=MinionsDB;User=sa;Password=";
 
         public static int? GetIdFromMinionDB(SqlConnection connection, 
             string tableName, string criteria)
