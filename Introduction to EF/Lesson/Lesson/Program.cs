@@ -49,7 +49,7 @@ namespace Lesson
             DbContextOptionsBuilder<Data.EntitiesWithFluentApi.SoftUniContext> optionsFApi =
                 new DbContextOptionsBuilder<Data.EntitiesWithFluentApi.SoftUniContext>();
 
-            /*
+            
             //Console Output
             optionsDA.UseSqlServer("Server = ; Database = SoftUni; User = ; Password = ")
                 .UseLoggerFactory(MyLoggerFactory);
@@ -57,17 +57,17 @@ namespace Lesson
             //Console Output
             optionsFApi.UseSqlServer("Server = ; Database = SoftUni; User = sa; Password = ")
                 .UseLoggerFactory(MyLoggerFactory);
-            **/
+            
 
             //Debug output
-            optionsDA.UseSqlServer("Server = 10.148.73.5; Database = SoftUni; User = sa; Password = Q1w2e3r4")
+            optionsDA.UseSqlServer("Server=;Database=SoftUni;User=sa;Password=")
                 .UseLoggerFactory(MyLoggerFactory2);
             //Debug output
-            optionsFApi.UseSqlServer("Server = 10.148.73.5; Database = SoftUni; User = sa; Password = Q1w2e3r4")
+            optionsFApi.UseSqlServer("Server = ; Database = SoftUni; User = sa; Password = ")
                 .UseLoggerFactory(MyLoggerFactory2);
 
 
-            using (var context = 
+            using (var context =
                 new Data.EntitiesWithDataAnnotations.SoftUniContext(optionsDA.Options))
             {
 
@@ -78,12 +78,12 @@ namespace Lesson
             }
 
             //throw exeption - Lazy loading not include
-            //using (var context = 
-            //    new Data.EntitiesWithFluentApi.SoftUniContext(optionsFApi.Options))
-            //{
-            //    var emp = context.Employees.FirstOrDefault();
-            //    Console.WriteLine($"{emp.FirstName} {emp.LastName} {emp.Department}");
-            //}
+            using (var context =
+                new Data.EntitiesWithFluentApi.SoftUniContext(optionsFApi.Options))
+            {
+                var emp = context.Employees.FirstOrDefault();
+                Console.WriteLine($"{emp.FirstName} {emp.LastName} {emp.Department}");
+            }
 
             //enable Lazy loading
             //SQL Query: 
@@ -95,13 +95,14 @@ namespace Lesson
             FROM[Employees] AS[e]
             INNER JOIN[Departments] AS[d] ON[e].[DepartmentID] = [d].[DepartmentID]
             **/
+
             using (var context =
                 new Data.EntitiesWithDataAnnotations.SoftUniContext(optionsDA.Options))
             {
 
                 var emp = context
                     .Employees
-                    .Include(e => e.Department)
+                    .Include(e => e.Department) //Lazy loading
                     .FirstOrDefault();
                 Console.WriteLine($"{emp.FirstName} {emp.LastName} {emp.Department.Name}");
             }
@@ -114,7 +115,7 @@ namespace Lesson
                 var newProject = new Data.EntitiesWithDataAnnotations.Projects()
                 {
                     Description = "Research walkman",
-                    Name = "Mountain crew",                    
+                    Name = "Mountain crew",
                     StartDate = DateTime.Now
                 };
 
@@ -122,8 +123,28 @@ namespace Lesson
                 context.SaveChanges();
 
                 Console.WriteLine();
-
             }
+
+            //Foreign key
+            using (var context =
+                new Data.EntitiesWithDataAnnotations.SoftUniContext(optionsDA.Options))
+            {
+                var address = new Data.EntitiesWithDataAnnotations.Addresses()
+                {
+                    AddressText = "Vitosha 12",
+                    Town = new Data.EntitiesWithDataAnnotations.Towns()
+                    {
+                        Name = "Svoge"
+                    }
+                };
+
+                context.Addresses.Add(address);
+                context.SaveChanges();
+            }
+
+            //Ако сме подходили Code First -> може да се трие каскадно, но в случая сме DB First 
+            //и exception throw ???!!!
+
         }
     }
 }
