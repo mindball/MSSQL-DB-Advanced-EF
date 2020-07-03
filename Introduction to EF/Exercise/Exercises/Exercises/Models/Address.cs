@@ -15,7 +15,6 @@ namespace Exercises.Models
 
         public int? TownId { get; set; }
 
-
         public  Town Town { get; set; }
 
         public  ICollection<Employee> Employees { get; set; }

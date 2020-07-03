@@ -8,6 +8,7 @@ namespace Exercises
 {
     using Data;
     using Models;
+    using System.Globalization;
     using System.Text;
 
     class StartUp
@@ -30,8 +31,20 @@ namespace Exercises
                 //var result = GetEmployeesFromResearchAndDevelopment(context);
 
                 //Task6
-                var result = AddNewAddressToEmployee(context);
+                //var result = AddNewAddressToEmployee(context);
+
+                //Task7
+                //var result = GetEmployeesInPeriod(context);
+                //Console.WriteLine(result);
+
+                //Task8
+                //var result = GetAddressesByTown(context);
+                //Console.WriteLine(result);
+
+                //Task9
+                var result = GetEmployee147(context);
                 Console.WriteLine(result);
+
             }
         }
 
@@ -88,11 +101,11 @@ namespace Exercises
                 .Where(x => x.Salary > 50000)
                 .Select(x => new
                 {
-                    x.FirstName,                   
-                    x.Salary,                    
-                })                
+                    x.FirstName,
+                    x.Salary,
+                })
                 .OrderBy(x => x.FirstName)
-                .ToList();           
+                .ToList();
 
             foreach (var employee in empls)
             {
@@ -161,6 +174,96 @@ namespace Exercises
             foreach (var employee in employess)
             {
                 sb.AppendLine($"{employee}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetEmployeesInPeriod(SoftUni2EFContext context)
+        {
+            var empls = context.Employees
+                .Where(p => p.EmployeesProjects
+                            .Any(s => s.Project.StartDate.Year >= 2001 &&
+                            s.Project.StartDate.Year <= 2001))
+                .Select(x => new
+                {
+                    EmployeeFullName = x.FirstName + " " + x.LastName,
+                    ManagerFullName = x.Manager.FirstName + " " + x.Manager.LastName,
+                    Projects = x.EmployeesProjects.Select(p => new
+                    {
+                        ProjectName = p.Project.Name,
+                        StartDate = p.Project.StartDate,
+                        EndDate = p.Project.EndDate
+                    }).ToList()
+                })
+                .Take(10)
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var employee in empls)
+            {
+                sb.AppendLine($"{employee.EmployeeFullName} - Manager: {employee.ManagerFullName}");
+                foreach (var project in employee.Projects)
+                {
+                    var startDateFormat = project.StartDate.ToString("M/d/yyyy h:mm:ss tt",
+                        CultureInfo.InvariantCulture);
+                    var endDateFormat =
+                                project.EndDate.HasValue ?
+                                project.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt",
+                                CultureInfo.InvariantCulture) :
+                                "not finished";
+                    
+
+                    sb.AppendLine($"--{project.ProjectName} - {startDateFormat} - {endDateFormat}");
+                }
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetAddressesByTown(SoftUni2EFContext context)
+        {
+            var addresses = context.Addresses
+                .Include(e => e.Employees)
+                .Include(t => t.Town)
+                .OrderByDescending(a => a.Employees.Count)
+                .ThenBy(b => b.Town.Name)
+                .ThenBy(a => a.AddressText)
+                .Take(10)
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var address in addresses)
+            {
+                sb.AppendLine($"{address.AddressText}, {address.Town.Name} - {address.Employees.Count} employees");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetEmployee147(SoftUni2EFContext context)
+        {
+
+            var emp = context.Employees
+                .Where(a => a.EmployeeId == 147)
+                .Select(b => new
+                {
+                    FullName = b.FirstName + " " + b.LastName,
+                    b.JobTitle,
+                    Projects = b.EmployeesProjects
+                    .Select(ep => ep.Project.Name)
+                    .OrderBy(pe => pe)
+                    .ToList()
+                }).First();
+                
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"{emp.FullName} - {emp.JobTitle}");
+
+            foreach (var project in emp.Projects)
+            {
+                sb.AppendLine($"{project.ToString()}");
             }
 
             return sb.ToString().TrimEnd();
