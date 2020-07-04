@@ -42,9 +42,20 @@ namespace Exercises
                 //Console.WriteLine(result);
 
                 //Task9
-                var result = GetEmployee147(context);
-                Console.WriteLine(result);
+                //var result = GetEmployee147(context);
+                //Console.WriteLine(result);
 
+                //Task10
+                //var result = GetDepartmentsWithMoreThan5Employees(context);
+                //Console.WriteLine(result);
+
+                //Task11
+                //var result = GetLatestProjects(context);
+                //Console.WriteLine(result);
+
+                //Task12
+                var result = IncreaseSalaries(context);
+                Console.WriteLine(result);
             }
         }
 
@@ -143,8 +154,6 @@ namespace Exercises
         }
         private static string AddNewAddressToEmployee(SoftUni2EFContext softUni2EFContext)
         {
-
-
             var newAddress = new Address()
             {
                 AddressText = "Vitoshka 15",
@@ -213,7 +222,7 @@ namespace Exercises
                                 project.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt",
                                 CultureInfo.InvariantCulture) :
                                 "not finished";
-                    
+
 
                     sb.AppendLine($"--{project.ProjectName} - {startDateFormat} - {endDateFormat}");
                 }
@@ -256,7 +265,7 @@ namespace Exercises
                     .OrderBy(pe => pe)
                     .ToList()
                 }).First();
-                
+
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{emp.FullName} - {emp.JobTitle}");
@@ -268,5 +277,97 @@ namespace Exercises
 
             return sb.ToString().TrimEnd();
         }
+
+        public static string GetDepartmentsWithMoreThan5Employees(SoftUni2EFContext context)
+        {
+            var departments = context.Departments
+                .Where(e => e.Employees.Count > 5)
+                .OrderBy(s => s.Employees.Count)
+                .ThenBy(v => v.Name)
+                .Select(x => new
+                {
+                    DepartmentName = x.Name,
+                    ManagerFullName = x.Manager.FirstName + " " + x.Manager.LastName,
+                    Employees = x.Employees.Select(e => new
+                    {
+                        EmployeeFirstName = e.FirstName,
+                        EmployeeLastName = e.LastName,
+                        EmployeeJobNam = e.JobTitle
+                    })
+                    .OrderBy(e => e.EmployeeFirstName)
+                    .ThenBy(e => e.EmployeeLastName)
+                    .ToList()
+                })
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var department in departments)
+            {
+                sb.AppendLine($"{department.DepartmentName} - {department.ManagerFullName}");
+
+                foreach (var emp in department.Employees)
+                {
+                    sb.AppendLine($"{emp.EmployeeFirstName} {emp.EmployeeLastName} - " +
+                        $"{emp.EmployeeJobNam}");
+                }
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string GetLatestProjects(SoftUni2EFContext context)
+        {
+            var projects = context.Projects
+                    .OrderByDescending(a => a.StartDate)
+                    .Take(10)
+                    .Select(b => new
+                    {
+                        b.Name,
+                        b.Description,
+                        StartDateProject = b.StartDate.ToString("M/d/yyyy h:mm:ss tt",
+                            CultureInfo.InvariantCulture)
+                    })
+                    .OrderBy(c => c.Name)
+                    .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var project in projects)
+            {
+                sb.AppendLine($"{project.Name}");
+                sb.AppendLine($"{project.Description}");
+                sb.AppendLine($"{project.StartDateProject}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string IncreaseSalaries(SoftUni2EFContext context)
+        {
+            var empl = context.Employees
+                .Where(x => x.Department.Name == "Engineering"
+                        || x.Department.Name == "Tool Design"
+                        || x.Department.Name == "Marketing"
+                        || x.Department.Name == "Information Services")
+                .Select(x => new
+                {
+                    FullName = x.FirstName + " " + x.LastName,
+                    UpdateSalary = x.Salary * (decimal)1.12
+                })
+                .OrderBy(x => x.FullName)
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var employee in empl)
+            {
+                sb.AppendLine($"{employee.FullName} ({employee.UpdateSalary:F2})");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+
     }
 }
