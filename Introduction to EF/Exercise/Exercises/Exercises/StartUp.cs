@@ -54,7 +54,14 @@ namespace Exercises
                 //Console.WriteLine(result);
 
                 //Task12
-                var result = IncreaseSalaries(context);
+                //var result = IncreaseSalaries(context);
+                //Console.WriteLine(result);
+
+                //Task13
+                //var result = FindEmployeesByFirstNameStartinWithSa(context);
+                //Console.WriteLine(result);
+
+                var result = DeleteProjectById(context);
                 Console.WriteLine(result);
             }
         }
@@ -345,24 +352,86 @@ namespace Exercises
 
         public static string IncreaseSalaries(SoftUni2EFContext context)
         {
+            context.Employees
+                .Where(x => new[] {"Engineering",
+                        "Tool Design",
+                        "Marketing",
+                        "Information Services"}
+                        .Contains(x.Department.Name))
+                .ToList()
+                .ForEach(e => e.Salary *= 1.12m);
+
+            context.SaveChanges();
+
+            StringBuilder sb = new StringBuilder();
+
             var empl = context.Employees
                 .Where(x => x.Department.Name == "Engineering"
                         || x.Department.Name == "Tool Design"
                         || x.Department.Name == "Marketing"
                         || x.Department.Name == "Information Services")
-                .Select(x => new
-                {
-                    FullName = x.FirstName + " " + x.LastName,
-                    UpdateSalary = x.Salary * (decimal)1.12
-                })
-                .OrderBy(x => x.FullName)
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
                 .ToList();
-
-            StringBuilder sb = new StringBuilder();
 
             foreach (var employee in empl)
             {
-                sb.AppendLine($"{employee.FullName} ({employee.UpdateSalary:F2})");
+                sb.AppendLine($"{employee.FirstName} {employee.LastName} " +
+                    $"({employee.Salary:F2})");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string FindEmployeesByFirstNameStartinWithSa(SoftUni2EFContext context)
+        {
+            var emp = context.Employees
+                    .Select(e => new
+                    {
+                        e.FirstName,
+                        e.LastName,
+                        e.JobTitle,
+                        e.Salary
+                    })
+                    .Where(e => e.FirstName.StartsWith("Sa"))
+                    .OrderBy(e => e.FirstName)
+                    .ThenBy(e => e.LastName)
+                    .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var e in emp)
+            {
+                sb.AppendLine($"{e.FirstName} {e.LastName} - {e.JobTitle} - (${e.Salary:f2})");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string DeleteProjectById(SoftUni2EFContext context)
+        {
+            var project = context.Projects.FirstOrDefault(p => p.ProjectId == 2);
+
+            var projEmployees = context.EmployeesProjects
+                .Where(ep => ep.ProjectId == 2)
+                .ToList();
+
+            context.EmployeesProjects.RemoveRange(projEmployees);
+            context.Projects.Remove(project);
+
+            context.SaveChanges();
+
+            var projects = context.Projects
+                .Select(x => x.Name)
+                .Take(10)
+                .ToList();
+
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var p in projects)
+            {
+                sb.AppendLine(p);
             }
 
             return sb.ToString().TrimEnd();
