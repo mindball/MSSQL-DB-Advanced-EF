@@ -18,7 +18,7 @@ namespace P01_HospitalDatabase.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=10.148.73.5;Database=SoftUni2EF;User=sa;Password=Q1w2e3r4");
+            optionsBuilder.UseSqlServer("Server=;Database=SoftUni2EF;User=sa;Password=");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
