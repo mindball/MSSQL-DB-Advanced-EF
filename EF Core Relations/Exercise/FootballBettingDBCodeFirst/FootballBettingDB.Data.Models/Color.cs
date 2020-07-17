@@ -16,8 +16,8 @@ namespace FootballBettingDB.Data.Models
 
         
 
-        public ICollection<Team> PrimaryKitTeams { get; set; }
+        public virtual ICollection<Team> PrimaryKitTeams { get; set; }
 
-        public ICollection<Team> SecondaryKitTeams { get; set; }
+        public virtual ICollection<Team> SecondaryKitTeams { get; set; }
     }
 }

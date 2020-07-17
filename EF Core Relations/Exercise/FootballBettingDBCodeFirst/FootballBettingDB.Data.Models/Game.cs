@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FootballBettingDB.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace FootballBettingDB.Data.Models
@@ -32,9 +33,12 @@ namespace FootballBettingDB.Data.Models
 
         public double DrawBetRate { get; set; }
 
-        public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+        //TODO: Game prediction ???
+        public Prediction Result { get; set; }
 
-        public ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+
+        public virtual ICollection<Bet> Bets { get; set; }
 
     }
 }

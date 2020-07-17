@@ -8,6 +8,7 @@ namespace FootballBettingDB.Data.Models
         {
             this.HomeGames = new HashSet<Game>();
             this.AwayGames = new HashSet<Game>();
+
             this.Players = new HashSet<Player>();
         }
 
@@ -33,11 +34,10 @@ namespace FootballBettingDB.Data.Models
 
         public Town Town { get; set; }
 
-        public ICollection<Game> HomeGames { get; set; }
+        public virtual ICollection<Game> HomeGames { get; set; }
+        public virtual ICollection<Game> AwayGames { get; set; }
 
-        public ICollection<Game> AwayGames { get; set; }
-
-        public ICollection<Player> Players { get; set; }
+        public virtual ICollection<Player> Players { get; set; }
 
     }
 }

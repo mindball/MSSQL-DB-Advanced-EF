@@ -20,6 +20,6 @@ namespace FootballBettingDB.Data.Models
 
         public decimal Balance { get; set; }
 
-        public ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<Bet> Bets { get; set; }
     }
 }

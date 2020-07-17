@@ -22,6 +22,6 @@ namespace FootballBettingDB.Data.Models
         public int PositionId { get; set; }
         public Position Position { get; set; }
 
-        public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+        public virtual ICollection<PlayerStatistic> PlayerStatistics { get; set; }
     }
 }

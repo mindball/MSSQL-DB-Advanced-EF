@@ -16,6 +16,6 @@ namespace FootballBettingDB.Data.Models
         public Country Coutry { get; set; }
 
 
-        public ICollection<Team> Teams { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }
