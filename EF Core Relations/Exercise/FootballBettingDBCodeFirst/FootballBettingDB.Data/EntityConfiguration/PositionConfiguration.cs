@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FootballBettingDB.Data.EntityConfiguration
 {
-    class ColorConfiguration : IEntityTypeConfiguration<Color>
+    public class PositionConfiguration : IEntityTypeConfiguration<Position>
     {
-        public void Configure(EntityTypeBuilder<Color> builder)
+        public void Configure(EntityTypeBuilder<Position> builder)
         {
-            builder.HasKey(c => c.ColorId);
+            builder.HasKey(p => p.PositionId);
 
-            builder.Property(c => c.Name)
-                .IsUnicode()
+            builder.Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(50);
+
         }
     }
 }

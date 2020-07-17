@@ -12,7 +12,21 @@ namespace FootballBettingDB.Data.EntityConfiguration
 
             builder.Property(p => p.Name)
                 .IsRequired()
-                .
+                .IsUnicode();
+
+            builder.Property(p => p.SquadNumber)
+                .IsRequired();
+
+            builder.Property(p => p.IsInjured)
+                .IsRequired();
+
+            builder.HasOne(t => t.Team)
+                .WithMany(p => p.Players)
+                .HasForeignKey(t => t.TeamId);
+
+            builder.HasOne(ps => ps.Position)
+                .WithMany(p => p.Players)
+                .HasForeignKey(ps => ps.PositionId);
         }
     }
 }

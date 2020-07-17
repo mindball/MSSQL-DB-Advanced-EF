@@ -2,6 +2,8 @@
 {
     public class PlayerStatistic
     {
+        public int PlayerStatisticId { get; set; }
+
         public int GameId { get; set; }
         public Game Game { get; set; }
 

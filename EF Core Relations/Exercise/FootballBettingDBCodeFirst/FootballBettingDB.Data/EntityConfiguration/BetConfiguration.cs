@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-
 namespace FootballBettingDB.Data.EntityConfiguration
 {
     public class BetConfiguration : IEntityTypeConfiguration<Bet>
