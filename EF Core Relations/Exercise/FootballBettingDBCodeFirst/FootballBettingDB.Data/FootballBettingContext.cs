@@ -2,7 +2,7 @@
 
 namespace FootballBettingDB.Data
 {
-    public class Class1
+    public class FootballBettingContext
     {
     }
 }
