@@ -12,7 +12,7 @@ namespace FootballBettingDB.Data.EntityConfiguration
 
             builder.Property(x => x.Name)
                 .IsRequired()
-                .IsUnicode()
+                .IsUnicode(true)
                 .HasMaxLength(100);
         }
     }

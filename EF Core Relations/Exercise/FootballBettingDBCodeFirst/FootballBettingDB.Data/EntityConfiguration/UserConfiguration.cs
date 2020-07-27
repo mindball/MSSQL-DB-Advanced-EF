@@ -27,7 +27,7 @@ namespace FootballBettingDB.Data.EntityConfiguration
 
             builder.Property(u => u.Name)
                .IsRequired()
-               .IsUnicode()
+               .IsUnicode(true)
                .HasMaxLength(50);
 
             builder.Property(u => u.Balance)

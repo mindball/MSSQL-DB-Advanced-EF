@@ -12,7 +12,7 @@ namespace FootballBettingDB.Data.EntityConfiguration
 
             builder.Property(p => p.Name)
                 .IsRequired()
-                .IsUnicode();
+                .IsUnicode(true);
 
             builder.Property(p => p.SquadNumber)
                 .IsRequired();

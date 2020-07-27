@@ -11,7 +11,7 @@ namespace FootballBettingDB.Data.EntityConfiguration
             builder.HasKey(c => c.ColorId);
 
             builder.Property(c => c.Name)
-                .IsUnicode()
+                .IsUnicode(true)
                 .IsRequired()
                 .HasMaxLength(50);
         }
