@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /EF Core Relations/Exercise/FootballBettingDBCodeFirst/FootballBettingDB.Data/Configuration.cs
+/EFCore Linq/Lesson
+/EFCore Linq/Exercise/P01_HospitalDatabase/P01_HospitalDatabase.Data/Configuration.cs
