@@ -1,4 +1,6 @@
 ﻿using P01_HospitalDatabase.Data.Models;
+using P01_HospitalDatabase.Data.EntityConfiguration.Common;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +15,7 @@ namespace P01_HospitalDatabase.Data.EntityConfiguration
             builder.Property(m => m.Name)
                 .IsRequired()
                 .IsUnicode(true)
-                .HasMaxLength(50);
+                .HasMaxLength(GlobalConstants.NameMaxLength);
         }
     }
 }

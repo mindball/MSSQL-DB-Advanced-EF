@@ -1,4 +1,6 @@
 ﻿using P01_HospitalDatabase.Data.Models;
+using P01_HospitalDatabase.Data.EntityConfiguration.Common;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -16,7 +18,7 @@ namespace P01_HospitalDatabase.Data.EntityConfiguration
             builder.Property(v => v.Comments)
                 .IsRequired(true)
                 .IsUnicode(true)
-                .HasMaxLength(250);
+                .HasMaxLength(GlobalConstants.CommentsMaxLength);
 
             builder.HasOne(d => d.Doctor)
                 .WithMany(v => v.Visitations)

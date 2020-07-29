@@ -1,4 +1,5 @@
 ﻿using P01_HospitalDatabase.Data.Models;
+using P01_HospitalDatabase.Data.EntityConfiguration.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,20 +14,20 @@ namespace P01_HospitalDatabase.Data.EntityConfiguration
             builder.Property(p => p.FirstName)
                 .IsRequired(true)
                 .IsUnicode(true)
-                .HasMaxLength(50);
+                .HasMaxLength(GlobalConstants.NameMaxLength);
 
             builder.Property(p => p.LastName)
                .IsRequired(true)
                .IsUnicode(true)
-               .HasMaxLength(50);
+               .HasMaxLength(GlobalConstants.NameMaxLength);
 
             builder.Property(p => p.Address)
                .IsRequired(true)
                .IsUnicode(true)
-               .HasMaxLength(250);
+               .HasMaxLength(GlobalConstants.CommentsMaxLength);
 
             builder.Property(p => p.Email)
-               .IsRequired(true)
+               .HasDefaultValue("no email")
                .IsUnicode(false)
                .HasMaxLength(80);
 
