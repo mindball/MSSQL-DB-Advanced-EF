@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LessonDemo.Models
 {
@@ -16,6 +17,8 @@ namespace LessonDemo.Models
         public DateTime? ModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
+
+        [ConcurrencyCheck]
         public string Name { get; set; }
         public int? SourceId { get; set; }
         public string SourceItemId { get; set; }
