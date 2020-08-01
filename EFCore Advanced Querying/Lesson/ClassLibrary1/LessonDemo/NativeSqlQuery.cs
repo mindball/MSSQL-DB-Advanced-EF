@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LessonDemo
 {
     using Models;
+    using System.Data.SqlClient;
 
     class NativeSqlQuery
     {
@@ -56,6 +57,15 @@ namespace LessonDemo
             {
                 Console.WriteLine(song.Name);
             }
+
+        }
+
+        public static void ExecutingStoredProcedure(MusicXContext mContext)
+        {
+            var ageParameter = new SqlParameter("@age", 5);
+            var query = "EXEC SomeProcedure @age";
+
+            mContext.Database.ExecuteSqlCommand(query, ageParameter);
         }
     }
 }
