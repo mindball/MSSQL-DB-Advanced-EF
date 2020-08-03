@@ -2,9 +2,9 @@
 {
     public enum EditionType
     {
-        None = 0,
-        Normal = 1,
-        Promo = 2,
-        Gold = 3
+        None = -1,
+        Normal = 0,
+        Promo = 1,
+        Gold = 2
     }
 }
