@@ -1,6 +1,7 @@
 ﻿namespace BookShop
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Data;
@@ -32,18 +33,130 @@
                 //var results = GetBooksByPrice(dbContext);
 
                 //5.Not Released In
-                var results = GetBooksNotReleasedIn(dbContext);
+                //var results = GetBooksNotReleasedIn(dbContext);
 
-                ////6.Book Titles by Category
+                //////6.Book Titles by Category
                 //string input = Console.ReadLine();
                 //var results = GetBooksByCategory(dbContext, input);
 
+                //7. Released Before Date
+                //string date = Console.ReadLine();
+                //var results = GetBooksReleasedBefore(dbContext, date);
+
+                ////8.Author Search
+                //string str = Console.ReadLine();
+                //var results = GetAuthorNamesEndingIn(dbContext, date);
+
+                //9.Book Search
+                //string str = Console.ReadLine();
+                //var results = GetBookTitlesContaining(dbContext, date);
+
+                //10. Book Search by Author
+                //string str = Console.ReadLine();
+                //var results = GetBooksByAuthor(dbContext, date);
+
+                //11. Count Books
+                //int len = int.Parse(Console.ReadLine());
+                //Console.WriteLine(CountBooks(dbContext, len));
+
+                //12.Total Book Copies
+                var results = CountCopiesByAuthor(dbContext);
 
                 foreach (var result in results)
                 {
                     Console.Write(result);
                 }
             }
+        }
+
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            var results = context.Authors
+                .Select(b => $"{b.FirstName} {b.LastName} - {b.Books.Sum(br => br.Copies)}");
+                
+            return string.Join(Environment.NewLine, results);
+        }
+
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            var len = context.Books
+                .Where(b => b.Title.Length > lengthCheck)
+                .Count();
+
+            return len;
+        }
+
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            var booksByGivenAuthor = context.Books
+                .Where(a => a.Author
+                            .LastName
+                            .ToLower()
+                            .StartsWith(input.ToLower()))
+                .OrderBy(b => b.BookId)
+                .Select(ba => $"{ba.Title} ({ba.Author.FirstName} {ba.Author.LastName})");
+
+            return string.Join(Environment.NewLine, booksByGivenAuthor);
+        }
+
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            var books = context.Books
+                .Where(b => b.Title.ToLower().Contains(input.ToLower()))
+                .Select(t => t.Title)
+                .OrderBy(t => t);
+
+            return string.Join(Environment.NewLine, books);
+        }
+
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var authors = context.Authors
+                .Where(a => a.FirstName.EndsWith(input))
+                .Select(fullname => fullname.FirstName 
+                                + " " + fullname.LastName)
+                .OrderBy(a => a)
+                .ToList();
+
+            return string.Join(Environment.NewLine, authors); ;
+        }
+
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            DateTime dateTime = DateTime.Parse(date);
+
+            var titles = context.Books.
+                Where(b => b.ReleaseDate < dateTime)
+                .OrderByDescending(b => b.ReleaseDate)
+                .Select(t => t.Title + 
+                        " - " + 
+                        t.EditionType 
+                        + " - "                         
+                        + t.Price
+                )
+                .ToList();
+
+            return string.Join(Environment.NewLine, titles);
+        }
+
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            string[] args = input.Split();
+            List<string> groups = new List<string>();
+
+            foreach (var arg in args)
+            {
+                var filter = context.Books
+                    .Where(b => b.BooksCategories.Any(x => x.Category.Name.ToLower().Equals(arg)))
+                    .Select(b => b.Title).ToList();
+
+                groups.AddRange(filter);
+            }
+
+            groups = groups.OrderBy(b => b).ToList();
+
+            return string.Join(Environment.NewLine,
+                 groups);
         }
 
         private static string GetBooksNotReleasedIn(BookShopContext dbContext)
