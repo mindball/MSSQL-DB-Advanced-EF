@@ -12,7 +12,7 @@
     //or switch to client evaluation explicitly by inserting a call to either
     //AsEnumerable(), AsAsyncEnumerable(), ToList(), or ToListAsync()
 
-    class StartUp
+    public class StartUp
     {
         static void Main(string[] args)
         {
@@ -21,60 +21,183 @@
             using (var dbContext = new BookShopContext())
             {
                 //DbInitializer.ResetDatabase(db);
-
+                
                 //2. Age Restriction
-                //var input = Console.ReadLine().ToLower();
-                //var results = GetBooksByAgeRestriction(dbContext, input);
+                var input = Console.ReadLine().ToLower();
+                var results = GetBooksByAgeRestriction(dbContext, input);
 
                 //3. Golden Books
-                //var results = GetGoldenBooks(dbContext);
+                results = GetGoldenBooks(dbContext);
 
                 //4.Books by Price
-                //var results = GetBooksByPrice(dbContext);
+                results = GetBooksByPrice(dbContext);
 
                 //5.Not Released In
-                //var results = GetBooksNotReleasedIn(dbContext);
+                results = GetBooksNotReleasedIn(dbContext);
 
                 //////6.Book Titles by Category
-                //string input = Console.ReadLine();
-                //var results = GetBooksByCategory(dbContext, input);
+                input = Console.ReadLine();
+                results = GetBooksByCategory(dbContext, input);
 
                 //7. Released Before Date
-                //string date = Console.ReadLine();
-                //var results = GetBooksReleasedBefore(dbContext, date);
+                string date = Console.ReadLine();
+                results = GetBooksReleasedBefore(dbContext, date);
 
                 ////8.Author Search
-                //string str = Console.ReadLine();
-                //var results = GetAuthorNamesEndingIn(dbContext, date);
+                string str = Console.ReadLine();
+                results = GetAuthorNamesEndingIn(dbContext, str);
 
                 //9.Book Search
-                //string str = Console.ReadLine();
-                //var results = GetBookTitlesContaining(dbContext, date);
+                str = Console.ReadLine();
+                results = GetBookTitlesContaining(dbContext, str);
 
                 //10. Book Search by Author
-                //string str = Console.ReadLine();
-                //var results = GetBooksByAuthor(dbContext, date);
+                str = Console.ReadLine();
+                results = GetBooksByAuthor(dbContext, date);
 
                 //11. Count Books
-                //int len = int.Parse(Console.ReadLine());
-                //Console.WriteLine(CountBooks(dbContext, len));
+                int len = int.Parse(Console.ReadLine());
+                Console.WriteLine(CountBooks(dbContext, len));
 
                 //12.Total Book Copies
-                var results = CountCopiesByAuthor(dbContext);
+                results = CountCopiesByAuthor(dbContext);
+
+                //Mapped table joins
+                //13. Profit by Category
+                results = GetTotalProfitByCategory(dbContext);
+
+                //Mapped table joins
+                //14. Most Recent Books
+                results = GetMostRecentBooks(dbContext);
 
                 foreach (var result in results)
                 {
                     Console.Write(result);
                 }
+
+                //15. Increase Prices
+                //All records in DB are 190
+                Console.WriteLine(IncreasePrices(dbContext));
+
+                //16.Remove Books
+                RemoveBooks(dbContext);
+
             }
+        }
+
+        public static int RemoveBooks(BookShopContext context, int lessThanCopies = 4200)
+        {
+            var books = context.Books
+                    .Where(b => b.Copies < lessThanCopies)
+                    .ToArray();
+
+            var removedBooks = books.Length;
+
+            context.Books.RemoveRange(books);
+            context.SaveChanges();
+
+            return removedBooks;
+        }
+
+        public static int IncreasePrices(BookShopContext context,
+            decimal increasement = 5, int year = 2010)
+        {     
+            using (context)
+            {
+                var books = context.Books
+                     .Where(b => b.ReleaseDate.Value.Year < year)
+                     .ToList();
+
+                foreach (var book in books)
+                {
+                    book.Price += increasement;
+                }
+
+                return context.SaveChanges();
+            }
+        }
+
+        //Mapped table joins
+        public static string GetMostRecentBooks(BookShopContext context)
+        {
+            StringBuilder str = new StringBuilder();
+
+            var mostRecentBooks = context.Categories
+                .Select(c => new
+                {
+                    CategoryName = c.Name,
+                    BooksName = c.BooksCategories
+                                .Select(b => new
+                                {
+                                    Title = b.Book.Title,
+                                    Year = b.Book.ReleaseDate.Value.Year
+                                })
+                                .OrderByDescending(y => y.Year)
+                                .Take(3)
+                                .ToList()
+                }
+                    )
+                .OrderBy(c => c.CategoryName)
+                .ToList();
+
+            foreach (var category in mostRecentBooks)
+            {
+                str.AppendLine($"--{category.CategoryName}");
+                foreach (var book in category.BooksName)
+                {
+                    str.AppendLine($"{book.Title} ({book.Year})");
+                }
+            }
+
+            return str.ToString().TrimEnd();
+        }
+
+        //Mapped table joins
+        public static string GetTotalProfitByCategory(BookShopContext context)
+        {
+            StringBuilder str = new StringBuilder();
+
+            var totalProfit = context.Categories
+                .Select(c => new
+                {
+                    CategoryName = c.Name,
+                    ProfitOfBooks = c.BooksCategories
+                                        .Select(b => new
+                                        {
+                                            BookProfit = b.Book.Price * b.Book.Copies
+                                        })
+                                        .Sum(d => d.BookProfit)
+                })
+                .OrderByDescending(c => c.ProfitOfBooks)
+                .ThenBy(c => c.CategoryName)
+                .ToList();
+
+            foreach (var item in totalProfit)
+            {
+                str.AppendLine($"{item.CategoryName} ${item.ProfitOfBooks:f2}");
+            }
+
+            return str.ToString().TrimEnd();
         }
 
         public static string CountCopiesByAuthor(BookShopContext context)
         {
+            StringBuilder str = new StringBuilder();
             var results = context.Authors
-                .Select(b => $"{b.FirstName} {b.LastName} - {b.Books.Sum(br => br.Copies)}");
-                
-            return string.Join(Environment.NewLine, results);
+                .Select(b => new
+                {
+                    AuthorFullName = $"{b.FirstName} {b.LastName}",
+                    SumOfCopies = b.Books.Sum(br => br.Copies)
+                })
+                .OrderByDescending(a => a.SumOfCopies)
+                .ToList(); ;
+
+            foreach (var ath in results)
+            {
+                str.AppendLine($"{ath.AuthorFullName} - {ath.SumOfCopies }");
+            }
+
+            return string.Join(Environment.NewLine, str);
         }
 
         public static int CountBooks(BookShopContext context, int lengthCheck)
