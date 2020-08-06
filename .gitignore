@@ -263,3 +263,4 @@ __pycache__/
 /EFCore Linq/Lesson
 /EFCore Linq/Exercise/P01_HospitalDatabase/P01_HospitalDatabase.Data/Configuration.cs
 /EFCore Advanced Querying/Exercise/BookShop/BookShop.Data/Configuration.cs
+/EF Core Auto Mapping Objects/LessonDemo/DataModel/Configuration.cs
