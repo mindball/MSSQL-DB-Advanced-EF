@@ -1,11 +1,11 @@
 ﻿namespace Lesson
 {
-    using System;
-    using System.Collections.Generic;
-
     using DataModel;
     using ModelViewController;
     using ModelViewController.DataTransferObects;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
 
     class Program
     {
@@ -30,18 +30,77 @@
                                        it is optional in most cases but can be useful for code 
                                        management and reusability purposes in some cases
             */
+            //MVC models
+            //var service = new ArtistsService(new MusicXContext());
+            //var artists = service.GetAllWithCount();
 
-            //Console application in now is View models(view models may be a browse to visuale data)
+            //Fast way to change interface visualization ot data
+            //View model example 2
+            //PrintArtistsAsJson(artists);
 
-            var service = new ArtistsService(new MusicXContext());
+            //View model example 1
+            //PrintArtists(artists);
+
+
+            //AutoMapper example           
+            //Where is power of automapper:
+            // First lets take a look without mapper:
+            //ExampleWithoutAutoMapper();
+
+            ExampleWithAutoMapper();
+
         }
 
+        
+
+        //View model example 1
         public static void PrintArtists(IEnumerable<ArtistWithCount> artistWithCount)
         {
             foreach (var art in artistWithCount)
             {
                 Console.WriteLine($"{art.Name} - {art.Count}");
             }
+        }
+
+        //View model example 2
+        public static void PrintArtistsAsJson(IEnumerable<ArtistWithCount> artistWithCount)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(artistWithCount, Formatting.Indented));
+        }
+       
+
+        public static void ExampleWithoutAutoMapper()
+        {
+            var service = new ArtistServiceWithoutMapper(new MusicXContext());
+            var artists = service.GetAllWithCountDTOWithSmallProperties();
+            PrintArtistsAsJsonExampleWithoutMapper(artists);
+
+            var serviceBig = new ArtistServiceWithoutMapper(new MusicXContext());
+            var artistsBig = serviceBig.GetAllWithCountDTOWithBigProperties();
+            PrintArtistsAsJsonExampleWithoutMapper(artistsBig);
+        }
+
+        public static void PrintArtistsAsJsonExampleWithoutMapper(IEnumerable<ArtistWithCountWithSmallProperties> artistWithCount)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(artistWithCount, Formatting.Indented));
+        }
+
+        public static void PrintArtistsAsJsonExampleWithoutMapper(IEnumerable<ArtistWithCountWithBigProperties> artistWithCount)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(artistWithCount, Formatting.Indented));
+        }
+
+        public static void ExampleWithAutoMapper()
+        {
+            var service = new ArtistWithCountWithAutoMapper(new MusicXContext());
+            var artist = service.GetAllWithCountDTOWithBigProperties();
+
+            PrintArtistsAsJsonExampleWithMapper(artist);
+        }
+
+        private static void PrintArtistsAsJsonExampleWithMapper(IEnumerable<ArtistWithCountWithBigProperties> artist)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(artist, Formatting.Indented));
         }
     }
 }

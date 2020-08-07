@@ -15,7 +15,7 @@ namespace ModelViewController
         {
             this.dbContext = dbContext;
         }
-        public IEnumerable<DataTransferObects.ArtistWithCount> GetAllWithCount()
+        public IEnumerable<ArtistWithCount> GetAllWithCount()
         {
             var songs = dbContext.Artists.Select(x => new ArtistWithCount
             {

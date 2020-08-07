@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ModelViewController.DataTransferObects
+﻿namespace ModelViewController.DataTransferObects
 {
     public class ArtistWithCount
     {
