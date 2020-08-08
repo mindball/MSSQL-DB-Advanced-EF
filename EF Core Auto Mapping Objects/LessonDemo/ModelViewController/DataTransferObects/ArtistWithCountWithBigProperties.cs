@@ -17,6 +17,9 @@ namespace ModelViewController.DataTransferObects
         public bool IsDeleted { get; set; }
 
         //and so on.....
+        //automapper advantages
+        //This is convention
 
+        public int SongArtistsCount { get; set; }
     }
 }
