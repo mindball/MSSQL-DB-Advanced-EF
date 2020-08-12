@@ -1,13 +1,14 @@
 ﻿namespace FastFood.Core.Controllers
 {
-    using System;
-    using AutoMapper;
-    using Data;
-    using Microsoft.AspNetCore.Mvc;
-    using ViewModels.Categories;
-    using FastFood.Models;
     using System.Linq;
+
+    using Data;
+    using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNetCore.Mvc;
+
+    using FastFood.Models;
+    using ViewModels.Categories;
 
     public class CategoriesController : Controller
     {
@@ -39,7 +40,7 @@
 
             this.context.SaveChanges();
 
-            return this.RedirectToAction("All", "Categories");
+            return this.RedirectToAction("All");
         }
 
         public IActionResult All()
