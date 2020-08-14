@@ -30,6 +30,8 @@ Arrays: [value1, value2,
 ```
 
 ## Newtonsoft.Json vs System.Text.Json
-* [Performance comparison(https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/#user-content-systemtextjson-in-aspnet-core-mvc)]
-* [Table of differences(https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson)]
+* [Performance comparison]
+* [Table of differences]
 
+ [Performance comparison]: <https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/#user-content-systemtextjson-in-aspnet-core-mvc>
+ [Table of differences] : <https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson>
