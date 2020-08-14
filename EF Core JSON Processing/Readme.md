@@ -13,23 +13,25 @@ Arrays: [value1, value2,
 ## Configuring JSON.NET
 ### Deserializing to anonymous types
 ```
-Г„Г®ГЎГ°Г  ГЇГ°Г ГЄГІГЁГЄГ  ГҐ Г¤Г  Г±ГҐ ГЁГ§ГЇГ®Г«Г§ГўГ ГІ, ГЄГ®ГЈГ ГІГ® ГЎГєГ°Г§Г® Г­ГЁ ГІГ°ГїГЎГўГ ГІ Г¤Г  
-ГЇГ°Г®Г·ГҐГІГҐГ¬ Г­ГїГЄГ ГЄГўГ  Г·Г Г±ГІ Г¤Г Г­Г­ГЁ, ГЄГ®ГЁГІГ® Г¤Г  Г­ГҐ Г±Г  ГЇГіГЎГ«ГЁГ·Г­ГЁ ГЁ 
-Г¤Г  Г­ГҐ Г§Г Г¬ГєГ°Г±ГїГўГ ГІ ГЈГ«Г®ГЎГ Г«Г­ГЁГї Г±ГЇГЁГ±ГєГЄ Г± ГЄГ«Г Г±Г®ГўГҐ 
+Добра практика е да се използват, когато бързо ни трябват да 
+прочетем някаква част данни, които да не са публични и 
+да не замърсяват глобалния списък с класове 
 ```
 ### JSON.NET Attributes
 ```
-ГЏГ°Г®ГЇГєГ°ГІГЁГІГ  Г± "access modifier (internal or private)" Г­ГҐ Г±ГҐ 
-ГЇГ°Г®Г·ГЁГІГ ГІ Г®ГІ JSON. ГЌГҐ ГҐ Г¤Г®ГЎГ°Г  ГЇГ°Г ГЄГІГЁГЄГ  Г¤Г  Г±ГҐ ГЇГ°Г®Г¬ГҐГ­ГїГІ 
-"access modifier" Г±Г Г¬Г® Г§Г Г°Г Г¤ГЁ ГІГ®ГўГ  JSON Г¤Г  Г­ГҐ ГЈГ® ГЇГ°Г®Г·ГЁГІГ .
-Г„Г®ГЎГ°Г  ГЇГ°Г ГЄГІГЁГЄГ  ГҐ Г¤Г  Г±ГҐ ГЁГ§ГЇГ®Г«Г§Г ГІ "attributes"
+Пропъртита с "access modifier (internal or private)" не се 
+прочитат от JSON. Не е добра практика да се променят 
+"access modifier" само заради това JSON да не го прочита.
+Добра практика е да се използат "attributes"
 ```
 ### JSON.NET Parsing of Objects
 ```
-Г‘ГЇГЁГ±ГєГЄ Г± Г­Г Г±ГІГ°Г®Г©ГЄГЁ
+Списък с настройки
 ```
 
 ## Newtonsoft.Json vs System.Text.Json
-* [Performance comparison(https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/#user-content-systemtextjson-in-aspnet-core-mvc)]
-* [Table of differences(https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson)]
+* [Performance comparison]
+* [Table of differences]
 
+ [Performance comparison]: <https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/#user-content-systemtextjson-in-aspnet-core-mvc>
+ [Table of differences] : <https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson>
