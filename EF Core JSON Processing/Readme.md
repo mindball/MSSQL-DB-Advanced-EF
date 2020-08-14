@@ -13,20 +13,20 @@ Arrays: [value1, value2,
 ## Configuring JSON.NET
 ### Deserializing to anonymous types
 ```
-Äîáðà ïðàêòèêà å äà ñå èçïîëçâàò, êîãàòî áúðçî íè òðÿáâàò äà 
-ïðî÷åòåì íÿêàêâà ÷àñò äàííè, êîèòî äà íå ñà ïóáëè÷íè è 
-äà íå çàìúðñÿâàò ãëîáàëíèÿ ñïèñúê ñ êëàñîâå 
+Добра практика е да се използват, когато бързо ни трябват да 
+прочетем някаква част данни, които да не са публични и 
+да не замърсяват глобалния списък с класове 
 ```
 ### JSON.NET Attributes
 ```
-Ïðîïúðòèòà ñ "access modifier (internal or private)" íå ñå 
-ïðî÷èòàò îò JSON. Íå å äîáðà ïðàêòèêà äà ñå ïðîìåíÿò 
-"access modifier" ñàìî çàðàäè òîâà JSON äà íå ãî ïðî÷èòà.
-Äîáðà ïðàêòèêà å äà ñå èçïîëçàò "attributes"
+Пропъртита с "access modifier (internal or private)" не се 
+прочитат от JSON. Не е добра практика да се променят 
+"access modifier" само заради това JSON да не го прочита.
+Добра практика е да се използат "attributes"
 ```
 ### JSON.NET Parsing of Objects
 ```
-Ñïèñúê ñ íàñòðîéêè
+Списък с настройки
 ```
 
 ## Newtonsoft.Json vs System.Text.Json
