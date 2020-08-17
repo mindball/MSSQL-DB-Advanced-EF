@@ -1,5 +1,6 @@
 ﻿namespace ProductShop.Data
 {
+    using System;
     internal class Configuration
     {
         internal static string ConnectionString
