@@ -13,20 +13,20 @@ Arrays: [value1, value2,
 ## Configuring JSON.NET
 ### Deserializing to anonymous types
 ```
-Добра практика е да се използват, когато бързо ни трябват да 
-прочетем някаква част данни, които да не са публични и 
-да не замърсяват глобалния списък с класове 
+Р”РѕР±СЂР° РїСЂР°РєС‚РёРєР° Рµ РґР° СЃРµ РёР·РїРѕР»Р·РІР°С‚, РєРѕРіР°С‚Рѕ Р±СЉСЂР·Рѕ РЅРё С‚СЂСЏР±РІР°С‚ РґР° 
+РїСЂРѕС‡РµС‚РµРј РЅСЏРєР°РєРІР° С‡Р°СЃС‚ РґР°РЅРЅРё, РєРѕРёС‚Рѕ РґР° РЅРµ СЃР° РїСѓР±Р»РёС‡РЅРё Рё 
+РґР° РЅРµ Р·Р°РјСЉСЂСЃСЏРІР°С‚ РіР»РѕР±Р°Р»РЅРёСЏ СЃРїРёСЃСЉРє СЃ РєР»Р°СЃРѕРІРµ 
 ```
 ### JSON.NET Attributes
 ```
-Пропъртита с "access modifier (internal or private)" не се 
-прочитат от JSON. Не е добра практика да се променят 
-"access modifier" само заради това JSON да не го прочита.
-Добра практика е да се използат "attributes"
+РџСЂРѕРїСЉСЂС‚РёС‚Р° СЃ "access modifier (internal or private)" РЅРµ СЃРµ 
+РїСЂРѕС‡РёС‚Р°С‚ РѕС‚ JSON. РќРµ Рµ РґРѕР±СЂР° РїСЂР°РєС‚РёРєР° РґР° СЃРµ РїСЂРѕРјРµРЅСЏС‚ 
+"access modifier" СЃР°РјРѕ Р·Р°СЂР°РґРё С‚РѕРІР° JSON РґР° РЅРµ РіРѕ РїСЂРѕС‡РёС‚Р°.
+Р”РѕР±СЂР° РїСЂР°РєС‚РёРєР° Рµ РґР° СЃРµ РёР·РїРѕР»Р·Р°С‚ "attributes"
 ```
 ### JSON.NET Parsing of Objects
 ```
-Списък с настройки
+РЎРїРёСЃСЉРє СЃ РЅР°СЃС‚СЂРѕР№РєРё
 ```
 
 ## Newtonsoft.Json vs System.Text.Json
@@ -34,4 +34,4 @@ Arrays: [value1, value2,
 * [Table of differences]
 
  [Performance comparison]: <https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/#user-content-systemtextjson-in-aspnet-core-mvc>
- [Table of differences] : <https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson>
+ [Table of differences]: <https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to#table-of-differences-between-newtonsoftjson-and-systemtextjson>
