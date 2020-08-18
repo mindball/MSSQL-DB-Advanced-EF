@@ -1,6 +1,5 @@
 ﻿namespace ProductShop.Data
-{
-    
+{    
     using Microsoft.EntityFrameworkCore;
 
     using Models;
@@ -54,7 +53,7 @@
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryProductsConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new User());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
         }
     }

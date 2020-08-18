@@ -29,7 +29,7 @@
 
             builder.HasOne(s => s.Seller)
                 .WithMany(p => p.ProductsSold)
-                .HasForeignKey(b => b.BuyerId);
+                .HasForeignKey(b => b.SellerId);
 
         }
     }
