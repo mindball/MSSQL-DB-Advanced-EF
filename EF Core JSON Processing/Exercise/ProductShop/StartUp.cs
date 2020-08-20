@@ -7,10 +7,12 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
-
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using ProductShop.Data;
     using ProductShop.DTO.Category;
     using ProductShop.DTO.Product;
+    using ProductShop.DTO.Task7;
     using ProductShop.DTO.User;
     using ProductShop.Models;
 
@@ -65,9 +67,13 @@
             //var jsonFileDto = GetSoldProducts(context);
             //File.WriteAllText(path + "/user-sold-item.json", jsonFileDto);
 
-            var jsonFileDto = GetUsersWithProducts(context);
-            File.WriteAllText(path + "/categories-by-products.json", jsonFileDto);
+            //Export Categories by Products Count
+            //var jsonFileDto = GetUsersWithProducts(context);
+            //File.WriteAllText(path + "/categories-by-products.json", jsonFileDto);
 
+            //Query 7. Export Users and Products
+            var jsonFileDto = GetCategoriesByProductsCount(context);
+            File.WriteAllText(path + "/users-and-products.json", jsonFileDto);
         }
 
         private static void ResetDB(ProductShopContext context)
@@ -212,5 +218,41 @@
 
             return pr;
         }
+
+        public static string GetCategoriesByProductsCount(ProductShopContext context)
+        {
+            
+            var mapper = Config.CreateMapper();
+
+            var users = context.Users
+                 .Where(u => u.ProductsSold.Any(ps => ps.Buyer != null))
+                 .OrderBy(x => x.ProductsSold.Count(ps => ps.Buyer != null))
+                 .ProjectTo<UserDetailsDto>(mapper.ConfigurationProvider)
+                 .ToArray();
+
+            var resultObj = new
+            {
+                usersCount = users.Count(),
+                users = users
+            };
+
+            //var defaultResolver = new DefaultContractResolver()
+            //{
+            //    NamingStrategy = new CamelCaseNamingStrategy()
+            //};
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                //ContractResolver = defaultResolver,
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore
+            };
+
+            var json = JsonConvert.SerializeObject(resultObj, jsonSettings);
+
+            return json;
+        }
+
+
     }
 }

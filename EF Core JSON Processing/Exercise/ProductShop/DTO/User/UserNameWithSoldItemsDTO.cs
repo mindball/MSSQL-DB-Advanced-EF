@@ -11,6 +11,6 @@ namespace ProductShop.DTO.User
         public string LastName { get; set; }
 
         [JsonProperty("soldProducts")]
-        public UserSoldItem[] SoldItems { get; set; }
+        public UserSoldItemDTO[] SoldItems { get; set; }
     }
 }

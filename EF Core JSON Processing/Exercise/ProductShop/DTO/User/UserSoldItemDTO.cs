@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProductShop.DTO.User
 {
-    public class UserSoldItem
+    public class UserSoldItemDTO
     {
 
         [JsonProperty("name")]
