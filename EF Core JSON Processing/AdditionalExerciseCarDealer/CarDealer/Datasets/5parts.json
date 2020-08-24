@@ -63,7 +63,7 @@
     "name": "Pillar",
     "price": 100.99,
     "quantity": 10,
-    "supplierId": 32
+    "supplierId": 13
   },
   {
     "name": "Quarter panel",
@@ -75,13 +75,13 @@
     "name": "Radiator ",
     "price": 100.99,
     "quantity": 10,
-    "supplierId": 56
+    "supplierId": 16
   },
   {
     "name": "Rocker",
     "price": 100.99,
     "quantity": 10,
-    "supplierId": 41
+    "supplierId": 2
   },
   {
     "name": "Roof rack",
@@ -99,19 +99,19 @@
     "name": "Rims",
     "price": 4020.99,
     "quantity": 10,
-    "supplierId": 31
+    "supplierId": 8
   },
   {
     "name": "Trim package",
     "price": 1900.99,
     "quantity": 10,
-    "supplierId": 65
+    "supplierId": 25
   },
   {
     "name": "Trunk/boot/hatch",
     "price": 2200.99,
     "quantity": 300,
-    "supplierId": 32
+    "supplierId": 22
   },
   {
     "name": "Valance",
@@ -285,7 +285,7 @@
     "name": "Rear Left Quarter Glass",
     "price": 100.55,
     "quantity": 10,
-    "supplierId": 51
+    "supplierId": 14
   },
   {
     "name": "Sunroof",
@@ -297,7 +297,7 @@
     "name": "Sunroof Rail",
     "price": 100.25,
     "quantity": 10,
-    "supplierId": 31
+    "supplierId": 29
   },
   {
     "name": "Sunroof Glass",
@@ -315,7 +315,7 @@
     "name": "Window regulator",
     "price": 100.99,
     "quantity": 10,
-    "supplierId": 61
+    "supplierId": 17
   },
   {
     "name": "Windshield",
@@ -327,7 +327,7 @@
     "name": "Window seal",
     "price": 100.99,
     "quantity": 10,
-    "supplierId": 31
+    "supplierId": 30
   },
   {
     "name": "Engine",
@@ -495,7 +495,7 @@
     "name": "Valve spring",
     "price": 104.99,
     "quantity": 10,
-    "supplierId": 51
+    "supplierId": 11
   },
   {
     "name": "Valve stem seal",
@@ -537,25 +537,25 @@
     "name": "Fan clutch",
     "price": 120.99,
     "quantity": 10,
-    "supplierId": 34
+    "supplierId": 3
   },
   {
     "name": "Radiator bolt",
     "price": 160.99,
     "quantity": 10,
-    "supplierId": 33
+    "supplierId": 2
   },
   {
     "name": "Radiator (fan) shroud",
     "price": 300.99,
     "quantity": 10,
-    "supplierId": 32
+    "supplierId": 1
   },
   {
     "name": "Radiator gasket",
     "price": 140.99,
     "quantity": 10,
-    "supplierId": 31
+    "supplierId": 24
   },
   {
     "name": "Radiator pressure cap",
@@ -747,7 +747,7 @@
     "name": "Master cylinder",
     "price": 130.99,
     "quantity": 10,
-    "supplierId": 54
+    "supplierId": 14
   },
   {
     "name": "Speed reducer",
@@ -759,7 +759,7 @@
     "name": "Transmission gear",
     "price": 15.99,
     "quantity": 10,
-    "supplierId": 43
+    "supplierId": 23
   },
   {
     "name": "Transmission pan",

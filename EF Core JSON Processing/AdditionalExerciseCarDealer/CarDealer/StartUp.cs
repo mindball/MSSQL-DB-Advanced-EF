@@ -7,6 +7,7 @@ namespace CarDealer
         static void Main(string[] args)
         {
             Engine engine = new Engine();
+            engine.ResetDB();
             engine.Run();
         }
     }

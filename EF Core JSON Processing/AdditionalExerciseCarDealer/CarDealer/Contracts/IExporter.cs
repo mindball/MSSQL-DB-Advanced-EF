@@ -1,4 +1,4 @@
-﻿namespace CarDealer.Models.Contracts
+﻿namespace CarDealer.Contracts
 {
     public interface IExporter
     {

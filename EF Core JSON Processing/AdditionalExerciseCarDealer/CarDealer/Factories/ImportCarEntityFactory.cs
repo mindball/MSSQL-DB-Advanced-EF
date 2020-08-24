@@ -1,34 +1,35 @@
-﻿using CarDealer.Models;
-using CarDealer.Models.Contracts;
-using System;
+﻿using System;
+
+using CarDealer.Contracts;
+using CarDealer.Imports;
 
 namespace CarDealer.Factories
 {
     public class ImportCarEntityFactory
     {      
-        public IImporter GetImport(string fileName)
+        public IJsonProcess GetImport(string fileName, string fullPath)
         {
-            IImporter importer;
+            IJsonProcess importer;
 
-            if (fileName.ToLower().Equals("cars.json"))
+            if (fileName.ToLower().Equals("1cars.json"))
             {
-                importer = new CarImport();
+                importer = new CarImport(fullPath);
             }
-            else if(fileName.ToLower().Equals("customers.json"))
+            else if(fileName.ToLower().Equals("2customers.json"))
             {
-                importer = new CustomerImport();
+                importer = new CustomerImport(fullPath);
             }
-            else if (fileName.ToLower().Equals("parts.json"))
+            else if (fileName.ToLower().Equals("5parts.json"))
             {
-                importer = new PartImport();
+                importer = new PartImport(fullPath);
             }
-            else if (fileName.ToLower().Equals("sales.json"))
+            else if (fileName.ToLower().Equals("3sales.json"))
             {
-                importer = new SaleImport();
+                importer = new SaleImport(fullPath);
             }
-            else if (fileName.ToLower().Equals("suppliers.json"))
+            else if (fileName.ToLower().Equals("4suppliers.json"))
             {
-                importer = new SupplierImport();
+                importer = new SupplierImport(fullPath);
             }       
             else
             {
