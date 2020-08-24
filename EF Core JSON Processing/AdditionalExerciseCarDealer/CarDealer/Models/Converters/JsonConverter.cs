@@ -4,7 +4,8 @@ using System.Text;
 
 namespace CarDealer.Models.Converters
 {
-    class JsonConverter
+    //when insert a XML must be implement!
+    public abstract class JsonConverter
     {
     }
 }

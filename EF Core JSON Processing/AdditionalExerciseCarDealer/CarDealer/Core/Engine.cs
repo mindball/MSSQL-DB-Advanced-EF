@@ -1,46 +1,65 @@
-﻿using Newtonsoft.Json;
+﻿using CarDealer.Data;
+using CarDealer.Factories;
+using CarDealer.Models.Contracts;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace CarDealer.Core
 {
     class Engine
     {
+        private ImportCarEntityFactory importer;
+        private CarDealerContext context;
 
-
-        public bool IsValidJson(string path)
+        public Engine()
         {
-            var strInput = File.ReadAllText(path);
+            this.importer = new ImportCarEntityFactory();
+            this.context = new CarDealerContext();
+        }
 
-            if (string.IsNullOrWhiteSpace(strInput)) { return false; }
-            strInput = strInput.Trim();
-            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
-                (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+        public void Run()
+        {
+            string path = "../../../Datasets/";
+
+            var getFiles = GetDirectoryFiles(path);
+
+            foreach (var fileName in getFiles)
             {
-                try
-                {
-                    var obj = JToken.Parse(strInput);
-                    return true;
-                }
-                catch (JsonReaderException jex)
-                {
-                    //Exception in parsing json
-                    Console.WriteLine(jex.Message);
-                    return false;
-                }
-                catch (Exception ex) //some other exception
-                {
-                    Console.WriteLine(ex.ToString());
-                    return false;
-                }
+                IImporter entity = importer.GetImport(Path.GetFileName(fileName));
             }
-            else
+
+        }
+
+        private string[] GetDirectoryFiles(string path)
+        {            
+            try
             {
-                return false;
+                string[] fileEntries = Directory.GetFiles(path);
+                return fileEntries;
+            }
+            catch(DirectoryNotFoundException dirEx)
+            {
+                throw new Exception(dirEx.Message);
             }
         }
+
+        private static void ResetDB(CarDealerContext context)
+        {
+            var dbName = context.Database.GetDbConnection().Database;
+
+            context.Database.EnsureDeleted();
+            Console.WriteLine($"Reset {dbName}!!!");
+
+            context.Database.EnsureCreated();
+            Console.WriteLine($"{dbName} is Up!!!");
+        }
+
+
     }
 }

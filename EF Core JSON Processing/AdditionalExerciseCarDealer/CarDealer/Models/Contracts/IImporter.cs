@@ -1,7 +1,9 @@
-﻿namespace CarDealer.Models.Contracts
+﻿using CarDealer.Data;
+
+namespace CarDealer.Models.Contracts
 {
     public interface IImporter
-    {
-        void Import();
+    {        
+        void Import(CarDealerContext context, string fileName);
     }
 }
