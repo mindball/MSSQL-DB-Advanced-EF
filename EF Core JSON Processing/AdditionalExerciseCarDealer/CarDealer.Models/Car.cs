@@ -18,7 +18,6 @@ namespace CarDealer.Models
 
         public long TravelledDistance { get; set; }
 
-
         public virtual ICollection<Sale> Sales { get; set; }
 
         public virtual ICollection<PartCar> PartCars { get; set; } = new List<PartCar>();

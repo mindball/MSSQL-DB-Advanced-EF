@@ -1,34 +1,63 @@
-﻿using CarDealer.Contracts;
-using CarDealer.Data;
-using CarDealer.Factories;
-
-
-namespace CarDealer.Core
+﻿namespace CarDealer.Core
 {
     using System;
     using System.IO;
+    using System.Linq;
     using Microsoft.EntityFrameworkCore;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     using CarDealer.Contracts;
     using CarDealer.Data;
-    using CarDealer.Factories;
-    using CarDealer.Imports;
+    using CarDealer.Factories;    
+    using CarDealer.DTO;
+    using Newtonsoft.Json;
+    using CarDealer.Exports;
 
     class Engine
     {
+
+
         private ImportCarEntityFactory importer;
         private CarDealerContext context;
+        private IExporter jsonExporter;
 
         public Engine()
         {
             this.importer = new ImportCarEntityFactory();
             this.context = new CarDealerContext();
+
+            this.jsonExporter = new JsonExporter();
         }
+
+        private IConfigurationProvider Config => new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<CarDealerProfile>();
+        });
+
+        public IMapper Mapper => this.Config.CreateMapper();
 
         public void Run()
         {
-            string path = "../../../Datasets/";
+            string path = "../../../Exports/JsonDataSets/";
 
+            //ImportProcess(path);
+
+            ExportProcess(path);            
+        }
+
+        private void ExportProcess(string path)
+        {
+            //Query 13. Export Ordered Customers
+            //GetOrderedCustomers(path);
+
+            //Export Cars from Make Toyota
+            GetCarsFromMakeToyota(path);
+        }
+
+        private void ImportProcess(string path)
+        {
             var getFiles = GetDirectoryFiles(path);
 
             foreach (var fileName in getFiles)
@@ -37,27 +66,72 @@ namespace CarDealer.Core
 
                 entity.Import();
             }
+        }
 
-            ////1.Successfully
-            //CarImport car = new CarImport("../../../Datasets/cars.json");
-            //car.Import();
+        public void GetOrderedCustomers(string path)
+        {
+            var customers = this.context.Customers
+                .OrderBy(x => x.BirthDate)
+                .ThenBy(x => x.IsYoungDriver)
+                .ProjectTo<OrderedCustomer>(this.Mapper.ConfigurationProvider)
+                .ToList();
 
-            ////2.Successfully
-            //CustomerImport customer = new CustomerImport("../../../Datasets/customers.json");
-            //customer.Import();
+            string customerResult = JsonConvert
+              .SerializeObject(customers, new JsonSerializerSettings()
+              { 
+                  NullValueHandling = NullValueHandling.Ignore,
+                  DateFormatString = "dd/MM/yyyy",
+                  Formatting = Formatting.Indented
+              });
 
-            ////3.Successfully
-            //SaleImport sale = new SaleImport("../../../Datasets/sales.json");
-            //sale.Import();
+            string fileName = "ordered-customers.json";
 
-            ////4.Successfully
-            //SupplierImport supplier = new SupplierImport("../../../Datasets/suppliers.json");
-            //supplier.Import();
+            string fullDirectoryPathWithFileName =
+                DirectoryExist(path, fileName);
 
-            ////5.Successfully
-            //PartImport part = new PartImport("../../../Datasets/parts.json");
-            //part.Import();
+            WriteFile(fullDirectoryPathWithFileName, customerResult);
+            //Polymorph
+            //this.jsonExporter.Export(fullDirectoryPathWithFileName, customerResult);
+        }
 
+        public void GetCarsFromMakeToyota(string path)
+        {
+            string fileName = "toyota-cars.json";
+
+            var carsModelToyota = this.context.Cars
+                .Where(c => c.Make == "Toyota")
+                .OrderBy(c => c.Model)
+                .ThenBy(c => c.TravelledDistance)
+                .ProjectTo<CarFromMakeToyota>(this.Mapper.ConfigurationProvider)
+                .ToList();
+
+            string fullDirectoryPathWithFileName =
+                DirectoryExist(path, fileName);
+
+            string carResult = JsonConvert
+              .SerializeObject(carsModelToyota, new JsonSerializerSettings()
+              {
+                  NullValueHandling = NullValueHandling.Ignore,                 
+                  Formatting = Formatting.Indented
+              });
+
+            WriteFile(fullDirectoryPathWithFileName, carResult);
+        }
+
+        private string DirectoryExist(string path, string fileName)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            return path + fileName;
+        }
+
+        private void WriteFile(string fullDirectoryPathWithFileName,
+            string fileContent)
+        {
+            File.WriteAllText(fullDirectoryPathWithFileName, fileContent);
         }
 
         private string[] GetDirectoryFiles(string path)
@@ -73,7 +147,7 @@ namespace CarDealer.Core
             }
         }
 
-        public void ResetDB()
+        private void ResetDB()
         {
             var dbName = this.context.Database.GetDbConnection().Database;
 
@@ -83,7 +157,5 @@ namespace CarDealer.Core
             context.Database.EnsureCreated();
             Console.WriteLine($"{dbName} is Up!!!");
         }
-
-
     }
 }

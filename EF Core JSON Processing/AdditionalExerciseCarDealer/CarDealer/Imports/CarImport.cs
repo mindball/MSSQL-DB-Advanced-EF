@@ -8,10 +8,11 @@
     using CarDealer.Models;
 
     public class CarImport : JsonProcess
-    {
+    {        
+
         public CarImport(string fullPath)
             : base(fullPath)
-        {
+        {           
         }
 
         public override void Import()

@@ -30,7 +30,11 @@ namespace CarDealer.Factories
             else if (fileName.ToLower().Equals("4suppliers.json"))
             {
                 importer = new SupplierImport(fullPath);
-            }       
+            }
+            else if (fileName.ToLower().Equals("6partscars.json"))
+            {
+                importer = new PartCarImport(fullPath);
+            }
             else
             {
                 throw new ArgumentException("No such importes");

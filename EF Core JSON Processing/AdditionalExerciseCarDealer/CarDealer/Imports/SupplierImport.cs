@@ -21,7 +21,7 @@
               .DeserializeObject<Supplier[]>(this.LoadedFile);
 
             this.Context.Suppliers.AddRange(suppliers);
-            this.Context.SaveChanges();
+            this.Context.SaveChanges();          
 
             Console.WriteLine($"Successfully suppliers imported {suppliers.Length}");
         }

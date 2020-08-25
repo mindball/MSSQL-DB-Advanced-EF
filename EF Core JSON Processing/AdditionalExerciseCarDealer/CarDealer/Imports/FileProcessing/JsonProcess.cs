@@ -10,7 +10,9 @@ namespace CarDealer.Imports.FileProcessing
 
     using CarDealer.Contracts;
     using CarDealer.Data;
-    using System.Runtime.CompilerServices;
+    using CarDealer.Models;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class JsonProcess : IJsonProcess
     {
@@ -18,7 +20,7 @@ namespace CarDealer.Imports.FileProcessing
         private readonly CarDealerContext context;
         private readonly string fullPath;
         private readonly string loadedFile;
-        private JToken token;
+        private JToken token;        
 
         public JsonProcess(string fullPath)
         {
@@ -27,16 +29,16 @@ namespace CarDealer.Imports.FileProcessing
             if(this.IsValidJson(fullPath))
                 this.fullPath = fullPath;
 
-            this.loadedFile = File.ReadAllText(this.fullPath);
-        }
+            this.loadedFile = File.ReadAllText(this.fullPath);            
+        }        
 
         public string LoadedFile => this.loadedFile;
 
         public CarDealerContext Context => this.context;
 
-        public string Path => this.fullPath;
+        public string Path => this.fullPath;        
 
-        public abstract void Import();
+        public abstract void Import();  
 
         public bool IsValidJson(string fullPath)
         {
