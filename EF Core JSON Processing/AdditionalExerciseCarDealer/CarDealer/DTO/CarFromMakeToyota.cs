@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace CarDealer.DTO
+﻿namespace CarDealer.DTO
 {
     public class CarFromMakeToyota
     {
