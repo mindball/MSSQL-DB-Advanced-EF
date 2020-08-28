@@ -267,3 +267,4 @@ __pycache__/
 /EF Core Auto Mapping Objects/ExerciseTasks/FastFood.Core/appsettings.json
 /EF Core JSON Processing/Exercise/ProductShop/Configuration.cs
 /EF Core JSON Processing/AdditionalExerciseCarDealer/CarDealer.Data/Configuration.cs
+/EF Core XML Processing/ProductShop/ProductShop/Data/Configuration.cs
