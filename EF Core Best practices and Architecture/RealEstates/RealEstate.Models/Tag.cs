@@ -9,7 +9,7 @@ namespace RealEstate.Models
     {
         public Tag()
         {
-            this.RealEstateProperties = new List<RealEstateProperty>();
+            this.RealEstateProperties = new List<RealEstatePropertyTag>();
         }
         public int Id { get; set; }
 
@@ -18,6 +18,6 @@ namespace RealEstate.Models
 
         public string Description { get; set; }
 
-        public  virtual ICollection<RealEstateProperty> RealEstateProperties { get; set; }
+        public  virtual ICollection<RealEstatePropertyTag> RealEstateProperties { get; set; }
     }
 }

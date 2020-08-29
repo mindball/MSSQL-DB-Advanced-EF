@@ -8,7 +8,7 @@ namespace RealEstate.Models
     {
         public RealEstateProperty()
         {
-            this.Tags = new List<Tag>();
+            this.Tags = new List<RealEstatePropertyTag>();
         }
         public int Id { get; set; }
 
@@ -34,6 +34,6 @@ namespace RealEstate.Models
 
         public int Price { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<RealEstatePropertyTag> Tags { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace RealEstate.Models
         {
             this.RealEstateProperties = new List<RealEstateProperty>();
         }
+
         public int Id { get; set; }
 
         [Required]
