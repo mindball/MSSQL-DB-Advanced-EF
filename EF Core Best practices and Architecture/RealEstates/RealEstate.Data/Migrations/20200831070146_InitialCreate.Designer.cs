@@ -10,7 +10,7 @@ using RealEstate.Data;
 namespace RealEstate.Data.Migrations
 {
     [DbContext(typeof(RealEstateDbContext))]
-    [Migration("20200829055238_InitialCreate")]
+    [Migration("20200831070146_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,9 +117,6 @@ namespace RealEstate.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RealEstatePropertyTagId")
                         .HasColumnType("int");
 
                     b.HasKey("RealEstatePropertyId", "TagId");

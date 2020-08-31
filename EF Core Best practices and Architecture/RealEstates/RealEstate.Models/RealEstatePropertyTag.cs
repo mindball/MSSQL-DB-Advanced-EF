@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace RealEstate.Models
 {
     public class RealEstatePropertyTag
-    {
-        public int RealEstatePropertyTagId { get; set; }
-
+    {   
         public int RealEstatePropertyId { get; set; }
 
         public virtual RealEstateProperty RealEstateProperty { get; set; }

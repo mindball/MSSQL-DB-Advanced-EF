@@ -15,6 +15,6 @@ namespace RealEstate.Models
         [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<RealEstateProperty> RealEstateProperties { get; set; }
+        public virtual ICollection<RealEstateProperty> RealEstateProperties { get; set; }        
     }
 }

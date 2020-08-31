@@ -9,7 +9,9 @@ namespace RealEstate.Services
             string district, string propertyType, 
             string buildinType, int? year, int price);
 
-        IEnumerable<PropertyViewModel> Search(int minYear, int maxYear, int minSize, int MaxSize);
+        void UpdateTags(int propertyId);
+
+        IEnumerable<PropertyViewModel> Search(int minYear, int maxYear, int minSize, int maxSize);
 
         IEnumerable<PropertyViewModel> SearchByPrice(int minPrice, int maxPrice);
 

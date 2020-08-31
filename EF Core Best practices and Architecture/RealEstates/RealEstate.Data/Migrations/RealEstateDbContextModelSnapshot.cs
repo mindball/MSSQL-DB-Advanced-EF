@@ -117,9 +117,6 @@ namespace RealEstate.Data.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RealEstatePropertyTagId")
-                        .HasColumnType("int");
-
                     b.HasKey("RealEstatePropertyId", "TagId");
 
                     b.HasIndex("TagId");

@@ -12,9 +12,9 @@ namespace RealEstate.Services.Models
 
         public string PropertyType { get; set; }
 
-        public int Year { get; set; }
+        public int? Year { get; set; }
 
-        public int Floor { get; set; }
+        public string Floor { get; set; }
 
         public int Price { get; set; }
 

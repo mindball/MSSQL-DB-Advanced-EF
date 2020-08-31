@@ -102,8 +102,7 @@ namespace RealEstate.Data.Migrations
                 columns: table => new
                 {
                     RealEstatePropertyId = table.Column<int>(nullable: false),
-                    TagId = table.Column<int>(nullable: false),
-                    RealEstatePropertyTagId = table.Column<int>(nullable: false)
+                    TagId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
