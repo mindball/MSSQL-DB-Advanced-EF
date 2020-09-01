@@ -53,7 +53,7 @@ namespace PetStore.Web.Controllers
         [HttpPost]
         public IActionResult Create(CreateProductInputModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return this.RedirectToAction("Error", "Home");
             }
@@ -73,6 +73,21 @@ namespace PetStore.Web.Controllers
             var productDetails = this.mapper.Map<ProductDetailsViewModel>(serviceModel);
 
             return this.View(productDetails);
+        }
+
+        [HttpGet]
+        public IActionResult Search(string searchWord)
+        {
+            if(searchWord == null 
+                || string.IsNullOrWhiteSpace(searchWord))
+            {
+                return this.RedirectToAction("All");
+            }
+            var searchProducts = this.productService.SearchByName(searchWord, false);
+
+            var searchProductModel = this.mapper.Map<List<ListAllProductsViewModel>>(searchProducts);
+
+            return this.View("All", searchProductModel);
         }
 
     }

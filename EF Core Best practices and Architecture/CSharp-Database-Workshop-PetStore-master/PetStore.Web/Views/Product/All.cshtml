@@ -4,6 +4,23 @@
     ViewData["Title"] = "All";
 }
 
+<div class="jumbotron-fluid">
+    <div class="text-center">
+        <h1>Search</h1>
+    </div>
+
+    <form asp-action="Search" method="get">
+        <!-- Search form -->
+        <div class="md-form active-pink active-pink-2 mb-3 mt-0">
+            <input name="searchWord" class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-info">
+        </div>
+    </form>
+    </br>
+</div>
+
 <div class="text-center">
     <h1>All</h1>
 </div>
@@ -38,9 +55,9 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
                 </td>
             </tr>
         }
@@ -49,9 +66,9 @@
 
 <p class="text-center">
     @*@if (this.User.IsInRole("Admin"))
-    {
-        <a asp-action="Create">Create New</a>
-    }*@
+        {
+            <a asp-action="Create">Create New</a>
+        }*@
 
     <a class="btn btn-info" asp-action="Create">Create New</a>
 </p>

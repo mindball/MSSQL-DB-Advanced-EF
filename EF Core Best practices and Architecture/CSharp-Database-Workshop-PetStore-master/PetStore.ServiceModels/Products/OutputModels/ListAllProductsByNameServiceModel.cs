@@ -2,6 +2,8 @@
 {
     public class ListAllProductsByNameServiceModel
     {
+        public string ProductId { get; set; }
+
         public string Name { get; set; }
 
         public string ProductType { get; set; }

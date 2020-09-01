@@ -33,7 +33,8 @@
                 .ForMember(x => x.ProductType, y => y.MapFrom(x => x.ProductType.ToString()));
 
             this.CreateMap<Product, ListAllProductsByNameServiceModel>()
-                .ForMember(x => x.ProductType, y => y.MapFrom(x => x.ProductType.ToString()));
+                .ForMember(x => x.ProductType, y => y.MapFrom(x => x.ProductType.ToString()))
+                .ForMember(x => x.ProductId, y => y.MapFrom(s => s.Id));
 
             this.CreateMap<ListAllProductsServiceModel, ListAllProductsViewModel>();
 
@@ -42,6 +43,8 @@
 
             this.CreateMap<ProductDetailsServiceModel, ProductDetailsViewModel>()
                 .ForMember(x => x.Price, y => y.MapFrom(p => p.Price.ToString("f2")));
+
+            this.CreateMap<ListAllProductsByNameServiceModel, ListAllProductsViewModel>();
 
         }
     }
