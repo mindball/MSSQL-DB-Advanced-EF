@@ -32,7 +32,7 @@ namespace PetStore.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(DbConfiguration.DefConnectionString);
+                optionsBuilder.UseSqlServer(DbConfiguration.ConnectionString);
             }
 
             base.OnConfiguring(optionsBuilder);
