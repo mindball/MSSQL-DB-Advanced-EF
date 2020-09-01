@@ -1,6 +1,10 @@
-﻿namespace PetStore.ServiceModels.Products.OutputModels
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace PetStore.ViewModels.Products
 {
-    public class ListAllProductsServiceModel
+    public class ListAllProductsViewModel
     {
         public string ProductId { get; set; }
 

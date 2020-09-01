@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using PetStore.Common;
+using PetStore.Data.Configurations;
 using PetStore.Models;
 
 namespace PetStore.Data
@@ -8,13 +9,11 @@ namespace PetStore.Data
     public class PetStoreDbContext : DbContext
     {
         public PetStoreDbContext()
-        {
-            
+        {            
         }
 
         public PetStoreDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
-        {
-            
+        {            
         }
 
         public DbSet<Breed> Breeds { get; set; }

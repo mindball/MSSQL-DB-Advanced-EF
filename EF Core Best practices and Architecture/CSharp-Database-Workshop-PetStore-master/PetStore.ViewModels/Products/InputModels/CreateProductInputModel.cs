@@ -1,13 +1,11 @@
-﻿using System;
-
-using System.ComponentModel.DataAnnotations;
-
-using PetStore.Common;
-using PetStore.Models.Enumerations;
-
-namespace PetStore.ServiceModels.Products.InputModels
+﻿namespace PetStore.ViewModels.Products.InputModels
 {
-    public class AddProductInputServiceModel
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using PetStore.Common;
+    
+    public class CreateProductInputModel
     {
         [Required]
         [MinLength(GlobalConstants.ProductNameMinLength)]
