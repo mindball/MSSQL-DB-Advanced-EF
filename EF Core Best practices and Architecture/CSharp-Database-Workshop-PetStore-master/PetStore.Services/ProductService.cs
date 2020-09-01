@@ -12,6 +12,7 @@ using PetStore.Models.Enumerations;
 using PetStore.ServiceModels.Products.InputModels;
 using PetStore.ServiceModels.Products.OutputModels;
 using PetStore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace PetStore.Services
 {
@@ -167,6 +168,26 @@ namespace PetStore.Services
             {
                 throw new ArgumentException(ExceptionMessages.InvalidProductType);
             }
+        }
+
+        public ProductDetailsServiceModel GetById(string id)
+        {
+            //var productDetail = this.dbContext
+            //    .Products.Where(x => x.Id == id)
+            //    .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
+            //    .ToList();
+
+            var product = this.dbContext.Products
+                .FirstOrDefault(s => s.Id == id);
+
+            if(product == null)
+            {
+                throw new ArgumentException(ExceptionMessages.ProductNotFound);
+            }
+
+            var productDetail = this.mapper.Map<ProductDetailsServiceModel>(product);
+
+            return productDetail;
         }
     }
 }

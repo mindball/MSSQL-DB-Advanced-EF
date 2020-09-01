@@ -5,10 +5,12 @@
 
     using PetStore.Models;
     using PetStore.Models.Enumerations;
-    using PetStore.ServiceModels.Products.InputModels;
-    using PetStore.ServiceModels.Products.OutputModels;
     using PetStore.ViewModels.Products;
     using PetStore.ViewModels.Products.InputModels;
+    using PetStore.ViewModels.Products.OutputModels;
+
+    using PetStore.ServiceModels.Products.InputModels;
+    using PetStore.ServiceModels.Products.OutputModels;
 
     public class ProductProfile : Profile
     {
@@ -34,7 +36,13 @@
                 .ForMember(x => x.ProductType, y => y.MapFrom(x => x.ProductType.ToString()));
 
             this.CreateMap<ListAllProductsServiceModel, ListAllProductsViewModel>();
-            
+
+            this.CreateMap<Product, ProductDetailsServiceModel>()
+                .ForMember(x => x.ProductType, y => y.MapFrom(x => x.ProductType.ToString()));
+
+            this.CreateMap<ProductDetailsServiceModel, ProductDetailsViewModel>()
+                .ForMember(x => x.Price, y => y.MapFrom(p => p.Price.ToString("f2")));
+
         }
     }
 }

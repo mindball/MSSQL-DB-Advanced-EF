@@ -15,6 +15,7 @@ namespace PetStore.Services.Interfaces
 
         ICollection<ListAllProductsByNameServiceModel> SearchByName(string searchStr, bool caseSensitive);
 
+        ProductDetailsServiceModel GetById(string id);
         bool RemoveById(string id);
 
         bool RemoveByName(string name);

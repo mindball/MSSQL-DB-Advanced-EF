@@ -9,9 +9,11 @@ namespace PetStore.Web.Controllers
     using AutoMapper;
     
     using PetStore.Services.Interfaces;
+    using PetStore.ServiceModels.Products.InputModels;
+
     using PetStore.ViewModels.Products;
     using PetStore.ViewModels.Products.InputModels;
-    using PetStore.ServiceModels.Products.InputModels;
+    using PetStore.ViewModels.Products.OutputModels;
 
     public class ProductController : Controller
     {
@@ -61,6 +63,16 @@ namespace PetStore.Web.Controllers
             this.productService.AddProduct(serviceModel);
 
             return this.RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var serviceModel = this.productService.GetById(id);
+
+            var productDetails = this.mapper.Map<ProductDetailsViewModel>(serviceModel);
+
+            return this.View(productDetails);
         }
 
     }
