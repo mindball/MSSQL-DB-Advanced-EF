@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RealEstate.Services;
 using RealEstate.Web.Models;
 
 namespace RealEstate.Web.Controllers
@@ -12,15 +13,18 @@ namespace RealEstate.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDistrictsService districtsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDistrictsService districtsService)
         {
             _logger = logger;
+            this.districtsService = districtsService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var result = this.districtsService.GetTopDistrictByAveragePrice(1000);
+            return View(result);
         }
 
         public IActionResult Privacy()

@@ -29,8 +29,8 @@ namespace RealEstate.Web
             //DB Context
             services.AddDbContext<RealEstateDbContext>(options =>
             {
-                options.UseSqlServer(this.Configuration["ConnectionStrings"])
-            })
+                options.UseSqlServer(this.Configuration["ConnectionStrings"]);
+            });
 
             //Add services
             services.AddTransient<IDistrictsService, DistrictsService>();

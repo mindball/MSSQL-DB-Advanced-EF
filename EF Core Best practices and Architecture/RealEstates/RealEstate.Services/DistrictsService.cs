@@ -22,7 +22,7 @@
         {
             return this.context.Districts
                 .OrderByDescending(x => x.RealEstateProperties
-                                .Average(s => s.Price))
+                                .Average(s => (double)s.Price / s.Size))
                 .Select(MapToDistrictViewModel())
                 .Take(count)
                 .ToList();
@@ -42,7 +42,7 @@
             return x => new DistrictViewModel
             {
                 AvgPrice = x.RealEstateProperties
-                                            .Average(s => s.Price),
+                                            .Average(s => (double)s.Price / s.Size),
                 MinPrice = x.RealEstateProperties
                                             .Min(x => x.Price),
                 MaxPrice = x.RealEstateProperties
