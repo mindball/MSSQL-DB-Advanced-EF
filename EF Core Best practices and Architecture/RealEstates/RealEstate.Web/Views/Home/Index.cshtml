@@ -14,7 +14,10 @@
         <th>Min. price</th>
         <th>Max. price</th>
     </tr>
-    @*Презантационна логика към вече IEnumerable (а не IQueryable)тоест към вече материализираните дании*@ 
+    @*Where -> добра практика
+        Презантационна логика към вече IEnumerable (а не IQueryable)
+        тоест към вече материализираните дании
+        Това view не иска другите квартали друго view може и да ги иска *@
     @foreach (var district in this.Model.Where(x => x.PropertiesCount > 50))
     {
         <tr>
