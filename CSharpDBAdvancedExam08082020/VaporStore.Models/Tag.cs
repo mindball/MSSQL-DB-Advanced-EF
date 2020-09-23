@@ -10,6 +10,6 @@ namespace VaporStore.Models
         [Required]
         public string  Name { get; set; }
 
-        public virtual ICollection<Game> GameTags { get; set; }
+        public virtual ICollection<GameTags> GameTags { get; set; }
     }
 }
