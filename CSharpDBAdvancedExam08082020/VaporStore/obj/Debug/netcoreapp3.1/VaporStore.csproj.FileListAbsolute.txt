@@ -1,0 +1,13 @@
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.exe
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.deps.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.runtimeconfig.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.runtimeconfig.dev.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\bin\Debug\netcoreapp3.1\VaporStore.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.csprojAssemblyReference.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.AssemblyInfoInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.AssemblyInfo.cs
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.csproj.CoreCompileInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore\obj\Debug\netcoreapp3.1\VaporStore.genruntimeconfig.cache
