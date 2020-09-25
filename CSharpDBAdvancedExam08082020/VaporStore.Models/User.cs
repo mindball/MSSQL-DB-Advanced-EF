@@ -7,10 +7,15 @@ namespace VaporStore.Models
     {
         private const int Min_Len = 3;
 
+        public User()
+        {
+            this.Cards = new List<Card>();
+        }
+
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(20), MinLength(Min_Len)]
+        [MinLength(Min_Len), MaxLength(20)]
         public string Username { get; set; }
 
         [Required]

@@ -5,6 +5,10 @@ namespace VaporStore.Models
 {
     public class Genre
     {
+        public Genre()
+        {
+            this.Games = new List<Game>();
+        }
         public int Id { get; set; }
 
         [Required]

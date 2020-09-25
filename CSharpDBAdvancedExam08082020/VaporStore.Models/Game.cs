@@ -6,6 +6,11 @@ namespace VaporStore.Models
 {
     public class Game
     {
+        public Game()
+        {
+            this.Purchases = new List<Purchase>();
+            this.GamesTags = new List<GameTags>();
+        }
         public int Id { get; set; }
 
         [Required]
@@ -18,12 +23,11 @@ namespace VaporStore.Models
         [Required]
         public DateTime ReleaseDate { get; set; }
 
-        [Required]
+        
         public int DeveloperId { get; set; }
         [Required]
         public virtual Developer Developer { get; set; }
-
-        [Required]
+        
         public int GenreId { get; set; }
         [Required]
         public virtual Genre Genre { get; set; }

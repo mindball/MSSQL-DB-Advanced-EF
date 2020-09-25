@@ -1,0 +1,8 @@
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\bin\Debug\netcoreapp3.1\VaporStore.Models.deps.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\bin\Debug\netcoreapp3.1\VaporStore.Models.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\bin\Debug\netcoreapp3.1\VaporStore.Models.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\obj\Debug\netcoreapp3.1\VaporStore.Models.AssemblyInfoInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\obj\Debug\netcoreapp3.1\VaporStore.Models.AssemblyInfo.cs
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\obj\Debug\netcoreapp3.1\VaporStore.Models.csproj.CoreCompileInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\obj\Debug\netcoreapp3.1\VaporStore.Models.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Models\obj\Debug\netcoreapp3.1\VaporStore.Models.pdb

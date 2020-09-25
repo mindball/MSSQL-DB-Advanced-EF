@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaporStore.Data", "VaporSto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaporStore.Models", "VaporStore.Models\VaporStore.Models.csproj", "{C3C94149-60CE-4A68-BFDF-A0A474230CD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaporStore.Services", "VaporStore.Services\VaporStore.Services.csproj", "{98D361B7-64CB-4FE3-8705-835FB79125BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C3C94149-60CE-4A68-BFDF-A0A474230CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3C94149-60CE-4A68-BFDF-A0A474230CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3C94149-60CE-4A68-BFDF-A0A474230CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D361B7-64CB-4FE3-8705-835FB79125BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D361B7-64CB-4FE3-8705-835FB79125BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D361B7-64CB-4FE3-8705-835FB79125BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D361B7-64CB-4FE3-8705-835FB79125BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

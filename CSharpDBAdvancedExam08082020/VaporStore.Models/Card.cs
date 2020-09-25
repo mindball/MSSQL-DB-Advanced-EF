@@ -8,6 +8,11 @@ namespace VaporStore.Models
     {
         private const int Min_Len = 3;
 
+        public Card()
+        {
+            this.Purchases = new List<Purchase>();
+        }
+
         public int Id { get; set; }
 
         [Required]

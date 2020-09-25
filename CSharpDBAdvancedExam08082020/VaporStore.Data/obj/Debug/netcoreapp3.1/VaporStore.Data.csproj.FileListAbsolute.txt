@@ -1,0 +1,15 @@
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Data.deps.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Data.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.csprojAssemblyReference.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.AssemblyInfoInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.AssemblyInfo.cs
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Data.runtimeconfig.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Data.runtimeconfig.dev.json
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.genruntimeconfig.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Data.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Models.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\bin\Debug\netcoreapp3.1\VaporStore.Models.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.csproj.CoreCompileInputs.cache
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.csproj.CopyComplete
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.dll
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Data\obj\Debug\netcoreapp3.1\VaporStore.Data.pdb
