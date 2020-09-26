@@ -2,8 +2,7 @@
 	{
 		"Name": "Mincho",
 		"Price": -1,
-		"ReleaseDate": "2013-07-09",
-		"Developer": "Valid Dev",
+		"ReleaseDate": "2013-07-09",		
 		"Genre": "Valid Genre",
 		"Tags": [
 			"Valid Tag"

@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace VaporStore.Services.Contracts
 {
     public interface IVaportService
     {
-        string Create(string name, 
+        string CreateGame(string name, 
             decimal price, 
-            DateTime releaseDate, 
+            string releaseDate, 
             string developer, 
             string genre, 
             List<string> tags);
+
+        string CreateUserAndCard();
+
+        string CreatePurchase();
     }
 }

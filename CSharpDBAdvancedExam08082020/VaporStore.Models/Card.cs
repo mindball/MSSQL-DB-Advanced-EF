@@ -7,7 +7,6 @@ namespace VaporStore.Models
     public class Card
     {
         private const int Min_Len = 3;
-
         public Card()
         {
             this.Purchases = new List<Purchase>();

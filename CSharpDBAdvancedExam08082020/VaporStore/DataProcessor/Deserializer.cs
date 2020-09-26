@@ -23,20 +23,15 @@
             var jsonGame = Newtonsoft.Json.JsonConvert
 				.DeserializeObject<JsonGame[]>(jsonString);
 
-			try
-			{
-				IVaportService vaportService = new VaportService(context);
+			IVaportService vaportService = new VaportService(context);
 				foreach (var game in jsonGame)
 				{
-					vaportService.Create(
+					string msg = vaportService.CreateGame(
 						game.Name, game.Price, game.ReleaseDate, game.Developer, game.Genre, game.Tags
 						);
-				}
-			}
-			catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+					Console.WriteLine(msg);
+				}			
 
 			return null;
 		}

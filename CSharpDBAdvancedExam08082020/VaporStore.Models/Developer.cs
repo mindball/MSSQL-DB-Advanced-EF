@@ -5,7 +5,6 @@ namespace VaporStore.Models
 {
     public class Developer
     {
-
         public Developer()
         {
             this.Games = new List<Game>();
