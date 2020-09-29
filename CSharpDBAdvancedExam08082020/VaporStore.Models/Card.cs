@@ -16,10 +16,10 @@ namespace VaporStore.Models
 
         [Required]
         [RegularExpression(@"^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$")]
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         [MaxLength(Min_Len), MinLength(Min_Len)]
-        public int Cvc { get; set; }
+        public string Cvc { get; set; }
 
         [Required]
         public CardType Type { get; set; }

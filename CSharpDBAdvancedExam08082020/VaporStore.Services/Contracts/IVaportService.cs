@@ -9,9 +9,10 @@ namespace VaporStore.Services.Contracts
             string releaseDate, 
             string developer, 
             string genre, 
-            List<string> tags);
+            List<string> tags);   
 
-        string CreateUserAndCard();
+        bool IsValidCreateUserAndCard(string fullName, string username, string email, int age,
+            bool existCards, string number, string cvc, string type);
 
         string CreatePurchase();
     }
