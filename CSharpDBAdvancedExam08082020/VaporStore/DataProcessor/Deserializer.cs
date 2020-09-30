@@ -13,6 +13,7 @@
     using System.Linq;
     using Microsoft.Extensions.Primitives;
     using System.Runtime.CompilerServices;
+    using System.Xml.Linq;
 
     public static class Deserializer
 	{
@@ -84,7 +85,24 @@
 
 		public static string ImportPurchases(VaporStoreContext context, string xmlString)
 		{
-			throw new NotImplementedException();
+			var xmlPurchase = XDocument.Parse(xmlString);
+			var rootElements = xmlPurchase.Root.Elements();
+
+			IVaportService vaportService = new VaportService(context);
+
+			foreach (var element in rootElements)
+            {
+				var gameTitle = element.Attribute("title").Value;
+				var purchaseType = element.Element("Type").Value;
+				var productKey = element.Element("Key").Value;
+				var cardNumber = element.Element("Card").Value;
+				var date = element.Element("Date").Value;
+
+				string msg = vaportService.CreatePurchase(gameTitle, purchaseType, productKey, cardNumber, date);
+                Console.WriteLine(msg);
+			}
+
+			return null;
 		}
 
 		private static bool IsValid(object dto)

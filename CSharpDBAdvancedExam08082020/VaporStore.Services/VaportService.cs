@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace VaporStore.Services
     {
         private VaporStoreContext context;
         private const string InvalidDataMsg = "Invalid Data";
+
         private string ValidDataMsg = "Added {gameName} ({gameGenre}) with {tagsCount} tags";
+        private string ValidPurchaseMsg = "Imported {0} for {1}";
 
         public VaportService(VaporStoreContext context)
         {
@@ -34,31 +37,46 @@ namespace VaporStore.Services
                 return InvalidDataMsg;
             }
 
-            var game = new Game()
+            var gameEntity = this.GetGame(name);
+
+            if(gameEntity == null)
             {
-                Name = name,
-                Price = price,
-                ReleaseDate = DateTime.Parse(releaseDate)
-            };
+                gameEntity = CreateGame(name, price, releaseDate);
+            }           
 
-            game.Genre = GetOrCreateGenre(genre);
+            gameEntity.Genre = GetGenre(genre);
 
-            game.Developer = GetOrCreateDeveloper(developer);
+            if(gameEntity.Genre == null)
+            {
+                gameEntity.Genre = this.CreateGenre(genre);
+            }
+
+            gameEntity.Developer = GetDeveloper(developer);
+            
+            if(gameEntity.Developer == null)
+            {
+                gameEntity.Developer = this.CreateDeveloper(developer);
+            }
 
             foreach (var tag in tags)
             {
                 var gameTag = new GameTags
                 {
-                    Tag = this.GetOrCreateTag(tag)
+                    Tag = this.GetTag(tag)                    
                 };
 
-                game.GamesTags.Add(gameTag);
+                if(gameTag.Tag == null)
+                {
+                    gameTag.Tag = this.CreateTag(tag);
+                }
+
+                gameEntity.GamesTags.Add(gameTag);
             }
 
-            this.context.Games.Add(game);
+            this.context.Games.Add(gameEntity);
             this.context.SaveChanges();
 
-            return $"Added {game.Name} ({game.Genre}) with {tags.Count} tags";
+            return $"Added {gameEntity.Name} ({gameEntity.Genre}) with {tags.Count} tags";
         }
 
         public bool IsValidCreateUserAndCard(string fullName,
@@ -86,8 +104,7 @@ namespace VaporStore.Services
                 return false;
             }
 
-            var userEntity = this.context.Users
-                .FirstOrDefault(u => u.Username.Trim() == username.Trim());
+            var userEntity = this.GetUser(username);
 
             if (userEntity == null)
             {
@@ -95,7 +112,12 @@ namespace VaporStore.Services
                 this.context.Users.Add(userEntity);
             }
 
-            var card = GetOrCreateCard(number, cvc, type);
+            var card = GetCard(number);
+
+            if(card == null)
+            {
+                card = this.CreateCard(number, cvc, type);
+            }
 
             userEntity.Cards.Add(card);            
 
@@ -104,6 +126,26 @@ namespace VaporStore.Services
             return true;
         }
 
+        public string CreatePurchase(string gameTitle, string purchaseType, 
+            string productKey, string cardNumber, string dateTime)
+        {
+            //TODO: make constraint
+
+            var card = GetCard(cardNumber);
+
+            DateTime formatDateTime = DateTime.Parse(dateTime);
+
+            var purchaseEntity = 
+                this.CreatePurchaseEntity(gameTitle, purchaseType, productKey, card.Number, formatDateTime);
+
+            this.context.Purchases.Add(purchaseEntity);
+
+            this.context.SaveChanges();
+
+            return $"Imported {gameTitle} for {card.User.Username}";
+        }
+
+        
         private bool CheckCardConstraint(string number, string cvc, string type)
         {
             bool isValidConstraint = true;
@@ -208,72 +250,82 @@ namespace VaporStore.Services
             }
         }
 
-        public string CreatePurchase()
+        private User GetUser(string username)
         {
-            return null;
+            var userEntity = this.context.Users
+               .FirstOrDefault(u => u.Username.Trim() == username.Trim());
+
+            return userEntity;
         }
 
-        private Tag GetOrCreateTag(string tagName)
+        private Tag GetTag(string tagName)
         {
             var tagEntity = this.context.Tags
                 .FirstOrDefault(t => t.Name.Trim() == tagName.Trim());
 
-            if (tagEntity == null)
-            {
-                tagEntity = new Tag() { Name = tagName };
-            }
+            return tagEntity;
+        }
+
+        private Tag CreateTag(string tagName)
+        {
+            var tagEntity = new Tag() { Name = tagName };
 
             return tagEntity;
         }
 
-        private Developer GetOrCreateDeveloper(string developer)
+        private Developer GetDeveloper(string developer)
         {
             var developerEntity = this.context.Developers
                 .FirstOrDefault(d => d.Name.Trim() == developer.Trim());
 
-            if (developerEntity == null)
-            {
-                developerEntity = new Developer() { Name = developer };
-            }
+            return developerEntity;
+        }
+
+        private Developer CreateDeveloper(string developer)
+        {           
+            var developerEntity  = new Developer() { Name = developer };            
 
             return developerEntity;
         }
 
-        private Genre GetOrCreateGenre(string genre)
+        private Genre GetGenre(string genre)
         {
             var genreEntity = this.context.Genres
                 .FirstOrDefault(d => d.Name.Trim() == genre.Trim());
 
-            if (genreEntity == null)
-            {
-                genreEntity = new Genre() { Name = genre };
-            }
-
             return genreEntity;
         }
 
-        private Card GetOrCreateCard(string number, string cvc, string type)
+        private Genre CreateGenre(string genre)
+        {           
+            var genreEntity = new Genre() { Name = genre };
+
+            return genreEntity;
+        }
+                
+        private Card GetCard(string number)
         {
             var card = this.context.Cards
                 .FirstOrDefault(c => c.Number == number);
 
-            if (card == null)
-            {
-                card = new Card()
+            return card;
+        }
+
+        private Card CreateCard(string number, string cvc, string type)
+        {
+           var card = new Card()
                 {
                     Number = number,
                     Cvc = cvc,
                     Type = (CardType)Enum
                         .Parse(typeof(CardType), type)
                 };
-            }
 
             return card;
         }
 
         private User CreateUser(string fullName, string username, string email, int age)
         {
-
             var userEntity = new User()
             {
                 FullName = fullName,
@@ -284,5 +336,45 @@ namespace VaporStore.Services
            
             return userEntity;
         }
+
+        private Game GetGame(string name)
+        {
+            var gameEntity = this.context.Games
+                .FirstOrDefault(g => g.Name == name);
+
+            return gameEntity;
+        }
+
+        private Game CreateGame(string name, decimal price, string releaseDate)
+        {
+            var game = new Game()
+            {
+                Name = name,
+                Price = price,
+                ReleaseDate = DateTime.Parse(releaseDate)
+            };
+
+            return game;
+        }
+
+        private Purchase CreatePurchaseEntity(string gameTitle, string purchaseType, 
+            string productKey, string cardNumber, DateTime dateTime)
+        {
+            var gameEntity = this.GetGame(gameTitle);
+            var cardEntity = this.GetCard(cardNumber);
+
+            var purchaseEntity = new Purchase()
+            {
+                Type = (PurchaseType)Enum
+                        .Parse(typeof(PurchaseType), purchaseType),
+                ProductKey = productKey,
+                Date = dateTime,
+                Game = gameEntity,
+                Card = cardEntity
+            };
+
+            return purchaseEntity;
+        }
+
     }
 }
