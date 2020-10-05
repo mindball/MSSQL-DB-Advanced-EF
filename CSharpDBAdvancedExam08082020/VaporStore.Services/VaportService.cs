@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -9,6 +12,7 @@ using VaporStore.Data;
 using VaporStore.Models;
 using VaporStore.Models.Enums;
 using VaporStore.Services.Contracts;
+using VaporStore.Services.Models;
 
 namespace VaporStore.Services
 {
@@ -132,8 +136,8 @@ namespace VaporStore.Services
             //TODO: make constraint
 
             var card = GetCard(cardNumber);
-
-            DateTime formatDateTime = DateTime.Parse(dateTime);
+            
+            DateTime formatDateTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
 
             var purchaseEntity = 
                 this.CreatePurchaseEntity(gameTitle, purchaseType, productKey, card.Number, formatDateTime);
@@ -266,24 +270,10 @@ namespace VaporStore.Services
             return tagEntity;
         }
 
-        private Tag CreateTag(string tagName)
-        {
-            var tagEntity = new Tag() { Name = tagName };
-
-            return tagEntity;
-        }
-
         private Developer GetDeveloper(string developer)
         {
             var developerEntity = this.context.Developers
                 .FirstOrDefault(d => d.Name.Trim() == developer.Trim());
-
-            return developerEntity;
-        }
-
-        private Developer CreateDeveloper(string developer)
-        {           
-            var developerEntity  = new Developer() { Name = developer };            
 
             return developerEntity;
         }
@@ -296,13 +286,6 @@ namespace VaporStore.Services
             return genreEntity;
         }
 
-        private Genre CreateGenre(string genre)
-        {           
-            var genreEntity = new Genre() { Name = genre };
-
-            return genreEntity;
-        }
-                
         private Card GetCard(string number)
         {
             var card = this.context.Cards
@@ -310,6 +293,36 @@ namespace VaporStore.Services
 
             return card;
         }
+
+        private Game GetGame(string name)
+        {
+            var gameEntity = this.context.Games
+                .FirstOrDefault(g => g.Name == name);
+
+            return gameEntity;
+        }
+
+        //Create entities
+        private Tag CreateTag(string tagName)
+        {
+            var tagEntity = new Tag() { Name = tagName };
+
+            return tagEntity;
+        }
+        
+        private Developer CreateDeveloper(string developer)
+        {           
+            var developerEntity  = new Developer() { Name = developer };            
+
+            return developerEntity;
+        }
+
+        private Genre CreateGenre(string genre)
+        {           
+            var genreEntity = new Genre() { Name = genre };
+
+            return genreEntity;
+        }               
 
         private Card CreateCard(string number, string cvc, string type)
         {
@@ -335,14 +348,6 @@ namespace VaporStore.Services
             };
            
             return userEntity;
-        }
-
-        private Game GetGame(string name)
-        {
-            var gameEntity = this.context.Games
-                .FirstOrDefault(g => g.Name == name);
-
-            return gameEntity;
         }
 
         private Game CreateGame(string name, decimal price, string releaseDate)
@@ -376,5 +381,11 @@ namespace VaporStore.Services
             return purchaseEntity;
         }
 
+        public IEnumerable<GamesViewModel> Search(IMapper Mapper)
+        {
+            return this.context.Games
+                .ProjectTo<GamesViewModel>(Mapper.ConfigurationProvider)
+                .ToList();
+        }
     }
 }

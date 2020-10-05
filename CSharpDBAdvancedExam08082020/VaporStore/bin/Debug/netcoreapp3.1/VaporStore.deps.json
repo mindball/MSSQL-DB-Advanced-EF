@@ -953,6 +953,7 @@
       },
       "VaporStore.Services/1.0.0": {
         "dependencies": {
+          "AutoMapper": "10.0.0",
           "VaporStore.Data": "1.0.0"
         },
         "runtime": {

@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaporStore", "VaporStore\Va
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaporStore.Data", "VaporStore.Data\VaporStore.Data.csproj", "{59049A93-4F53-46CA-9F94-BF4B0D3FE5CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaporStore.Models", "VaporStore.Models\VaporStore.Models.csproj", "{C3C94149-60CE-4A68-BFDF-A0A474230CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaporStore.Models", "VaporStore.Models\VaporStore.Models.csproj", "{C3C94149-60CE-4A68-BFDF-A0A474230CD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaporStore.Services", "VaporStore.Services\VaporStore.Services.csproj", "{98D361B7-64CB-4FE3-8705-835FB79125BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaporStore.Services", "VaporStore.Services\VaporStore.Services.csproj", "{98D361B7-64CB-4FE3-8705-835FB79125BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,20 +11,21 @@ namespace VaporStore
 
 	using DataProcessor;
 	using Data;
+    using System.Runtime.CompilerServices;
 
     class StartUp
-    {
+    {		
+
 		public static void Main(string[] args)
 		{
 			var context = new VaporStoreContext();
 
-			//Mapper.Initialize(config => config.AddProfile<VaporStoreProfile>());
 
-			ResetDatabase(context, shouldDropDatabase: true);
+			//ResetDatabase(context, shouldDropDatabase: true);
 
 			var projectDir = GetProjectDirectory();
 
-			ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
+			//ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
 			ExportEntities(context, projectDir + @"ImportResults/");
 
 			using (var transaction = context.Database.BeginTransaction())

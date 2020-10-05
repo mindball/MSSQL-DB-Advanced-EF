@@ -8,7 +8,7 @@ C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.csprojAssemblyReference.cache
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.AssemblyInfoInputs.cache
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.AssemblyInfo.cs
-C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.csproj.CoreCompileInputs.cache
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.csproj.CopyComplete
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.dll
 C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.pdb
+C:\Users\oilaripi\source\repos\MSSQL-DB-Advanced-EF\CSharpDBAdvancedExam08082020\VaporStore.Services\obj\Debug\netcoreapp3.1\VaporStore.Services.csproj.CoreCompileInputs.cache
