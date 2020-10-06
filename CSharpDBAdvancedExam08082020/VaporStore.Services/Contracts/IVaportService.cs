@@ -18,6 +18,8 @@ namespace VaporStore.Services.Contracts
 
         string CreatePurchase(string gameTitle, string purchaseType, string productKey, string cardNumber, string dateTime);
 
-        IEnumerable<GamesViewModel> Search(IMapper Mapper);
+        //IEnumerable<GamesViewModel> SearchGames(IMapper Mapper);
+
+        IEnumerable<GenreViewModel> SearchGenres(IMapper Mapper);
     }
 }

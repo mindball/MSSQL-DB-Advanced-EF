@@ -1,17 +1,14 @@
 ﻿namespace VaporStore.DataProcessor
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel.DataAnnotations;
-	using System.Linq;
-	using System.Xml.Linq;
+    using System;
+    using System.Linq;
 
-	using Data;
-	using Services;
-	using Services.Contracts;
+    using AutoMapper;
 
-	using AutoMapper;
-    using System.Text;
+    using Data;
+    using Newtonsoft.Json;
+    using Services;
+    using Services.Contracts;
 
     public static class Serializer
 	{
@@ -25,32 +22,28 @@
 			IMapper Mapper = Config.CreateMapper();
 
 			IVaportService vaportService = new VaportService(context);
-			var games = vaportService.Search(Mapper)
-						.Where(x => x.Players > 0)
-						.OrderByDescending(x => x.Players);
 
-            foreach (var game in games)
-            {
-                Console.WriteLine($"ID: {game.Id}");
-                Console.WriteLine($"Title: {game.Title}");
-                Console.WriteLine($"Developer: {game.Developer}");
+			var genres = vaportService.SearchGenres(Mapper)
+				.Where(g => genreNames.Contains(g.Genre))
+				.Select(g => new
+				{
+					Id = g.Id,
+					Genre = g.Genre,
+					Games = g.Games
+						.Where(ga => ga.Players > 0)
+						.OrderByDescending(ga => ga.Players),
+					TotalPlayer = g.Games.Sum(a => a.Players)
+				})				
+				.ToList();
 
-                StringBuilder str = new StringBuilder();
-                str.Append("\"");
+			var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings()
+			{
+				NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+			};
 
-                foreach (var tag in game.Tags)
-                {
-                    str.Append(tag.Name);
-                    str.Append(", ");
-                }
-                string tags = str.ToString().TrimEnd(',') + "\"";
+			string json = JsonConvert.SerializeObject(genres, Formatting.Indented);
 
-                Console.WriteLine(tags);
-
-                Console.WriteLine($"Players: {game.Tags.Count}");
-            }
-
-            return null;
+			return json;
 		}
 
 		public static string ExportUserPurchasesByType(VaporStoreContext context, string storeType)

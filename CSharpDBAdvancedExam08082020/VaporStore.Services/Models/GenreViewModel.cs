@@ -8,10 +8,10 @@ namespace VaporStore.Services.Models
     {
         public int Id { get; set; }
 
-        public string Genre { get; set; }
-
-        public int TotalPlayers { get; set; }
+        public string Genre { get; set; }        
 
         public List<GamesViewModel> Games { get; set; }
+
+        //public int PlayersCount { get; set; }
     }
 }

@@ -381,11 +381,19 @@ namespace VaporStore.Services
             return purchaseEntity;
         }
 
-        public IEnumerable<GamesViewModel> Search(IMapper Mapper)
+        //public IEnumerable<GamesViewModel> SearchGames(IMapper Mapper)
+        //{
+        //    return this.context.Games
+        //        .ProjectTo<GamesViewModel>(Mapper.ConfigurationProvider)
+        //        .ToList();
+        //}
+
+        public IEnumerable<GenreViewModel> SearchGenres(IMapper Mapper)
         {
-            return this.context.Games
-                .ProjectTo<GamesViewModel>(Mapper.ConfigurationProvider)
-                .ToList();
+            return this.context.Genres
+                .Where(g => g.Games.Any())
+                .ProjectTo<GenreViewModel>(Mapper.ConfigurationProvider)
+                .ToList(); 
         }
     }
 }

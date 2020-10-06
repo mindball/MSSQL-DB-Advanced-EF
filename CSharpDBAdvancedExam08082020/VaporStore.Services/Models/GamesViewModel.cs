@@ -12,7 +12,9 @@ namespace VaporStore.Services.Models
 
         public string Developer { get; set; }
 
-        public IList<TagViewModel> Tags { get; set; }
+        //public IList<TagViewModel> Tags { get; set; }
+
+        public string Tags { get; set; }
 
         public int Players { get; set; }
     }
