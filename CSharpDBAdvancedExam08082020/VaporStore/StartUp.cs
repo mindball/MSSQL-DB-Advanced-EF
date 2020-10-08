@@ -20,7 +20,6 @@ namespace VaporStore
 		{
 			var context = new VaporStoreContext();
 
-
 			//ResetDatabase(context, shouldDropDatabase: true);
 
 			var projectDir = GetProjectDirectory();
@@ -36,8 +35,8 @@ namespace VaporStore
 
 		private static void ExportEntities(VaporStoreContext context, string exportDir)
 		{
-			var jsonOutput = Serializer.ExportGamesByGenres(context, new[] { "Nudity", "Violent" });
-			PrintAndExportEntityToFile(jsonOutput, exportDir + "GamesByGenres.json");
+			//var jsonOutput = Serializer.ExportGamesByGenres(context, new[] { "Nudity", "Violent" });
+			//PrintAndExportEntityToFile(jsonOutput, exportDir + "GamesByGenres.json");
 
 			var xmlOutput = Serializer.ExportUserPurchasesByType(context, "Digital");
 			PrintAndExportEntityToFile(xmlOutput, exportDir + "UserPurchases.xml");

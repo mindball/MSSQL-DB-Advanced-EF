@@ -1,21 +1,21 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using VaporStore.Data;
-using VaporStore.Models;
-using VaporStore.Models.Enums;
-using VaporStore.Services.Contracts;
-using VaporStore.Services.Models;
-
-namespace VaporStore.Services
+﻿namespace VaporStore.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore.Internal;
+    using VaporStore.Data;
+    using VaporStore.Models;
+    using VaporStore.Models.Enums;
+    using VaporStore.Services.Contracts;
+    using VaporStore.Services.Models.ExportAllGamesByGenres;
+    using VaporStore.Services.Models.ExportUserPurchasesByType;
+
     public class VaportService : IVaportService
     {
         private VaporStoreContext context;
@@ -395,5 +395,6 @@ namespace VaporStore.Services
                 .ProjectTo<GenreViewModel>(Mapper.ConfigurationProvider)
                 .ToList(); 
         }
+
     }
 }

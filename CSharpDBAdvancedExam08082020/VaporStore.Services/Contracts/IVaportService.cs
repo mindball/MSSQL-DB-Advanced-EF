@@ -1,9 +1,12 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
-using VaporStore.Services.Models;
-
+﻿
 namespace VaporStore.Services.Contracts
 {
+    using AutoMapper;
+
+    using System.Collections.Generic;
+    using VaporStore.Services.Models.ExportAllGamesByGenres;
+    using VaporStore.Services.Models.ExportUserPurchasesByType;
+
     public interface IVaportService
     {
         string CreateGame(string name,
@@ -21,5 +24,6 @@ namespace VaporStore.Services.Contracts
         //IEnumerable<GamesViewModel> SearchGames(IMapper Mapper);
 
         IEnumerable<GenreViewModel> SearchGenres(IMapper Mapper);
+      
     }
 }
