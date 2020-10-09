@@ -15,6 +15,7 @@
     using System.Globalization;
     using System.Linq;
     using TeisterMask.Data.Models.Enums;
+    using Newtonsoft.Json;
 
     public class Deserializer
     {
@@ -146,7 +147,62 @@
 
         public static string ImportEmployees(TeisterMaskContext context, string jsonString)
         {
-            throw new NotImplementedException();
+            var employeesDtos = JsonConvert.DeserializeObject<EmployeeTaskDto[]>(jsonString);
+
+            List<Employee> importEmployees = new List<Employee>();
+            List<EmployeeTask> importEmployeeTasks = new List<EmployeeTask>();
+
+            StringBuilder sb = new StringBuilder();
+
+            int tasksCount = 0;
+
+            foreach (var employeeDto in employeesDtos)
+            {
+                if (IsValid(employeeDto))
+                {
+                    Employee employee = new Employee
+                    {
+                        Username = employeeDto.Username,
+                        Email = employeeDto.Email,
+                        Phone = employeeDto.Phone
+                    };
+
+                    importEmployees.Add(employee);
+
+                    foreach (var taskId in employeeDto.Tasks.Distinct())
+                    {
+                        if (IsTaskIdValid(context, taskId))
+                        {
+                            EmployeeTask employeeTask = new EmployeeTask
+                            {
+                                TaskId = taskId,
+                                Employee = employee
+                            };
+
+                            importEmployeeTasks.Add(employeeTask);
+                            tasksCount++;
+                        }
+                        else
+                        {
+                            sb.AppendLine(ErrorMessage);
+                        }
+                    }
+
+                    sb.AppendLine(string.Format(SuccessfullyImportedEmployee, employeeDto.Username, tasksCount));
+                    tasksCount = 0;
+                }
+                else
+                {
+                    sb.Append(ErrorMessage);
+                }                
+            }
+
+            context.Employees.AddRange(importEmployees);
+            context.EmployeesTasks.AddRange(importEmployeeTasks);
+
+            context.SaveChanges();
+
+            return sb.ToString().TrimEnd();
         }
 
         private static bool IsValid(object dto)
