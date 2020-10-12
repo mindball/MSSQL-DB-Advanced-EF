@@ -2,7 +2,10 @@
 {
     using System;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
+    using System.Text;
+    using System.Xml.Serialization;
     using Data;
     using Newtonsoft.Json;
     using TeisterMask.DataProcessor.ExportDto;
@@ -12,7 +15,40 @@
     {
         public static string ExportProjectWithTheirTasks(TeisterMaskContext context)
         {
-            throw new NotImplementedException();
+            var projects = context.Projects
+                .Where(t => t.Tasks.Any())
+                .Select(p => new ProjectWithtTaskDto
+                { 
+                    Name = p.Name,
+                    TaskCount = p.Tasks.Count(),
+                    HasEndDate = (string.IsNullOrEmpty(p.DueDate.ToString()) ? "No" : "Yes"),
+                    Tasks = p.Tasks
+                            .Select(t => new TaskExportDTO 
+                            { 
+                                Name = t.Name,
+                                Label = t.LabelType.ToString()
+                            })
+                            .OrderBy(t => t.Name)
+                            .ToArray()
+                })
+                .OrderByDescending(p => p.TaskCount)
+                .ThenBy(p => p.Name)
+                .ToArray();
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectWithtTaskDto[]),
+               new XmlRootAttribute("Projects"));
+
+            var namespaces = new XmlSerializerNamespaces();
+            namespaces.Add("", "");
+
+            StringBuilder sb = new StringBuilder();
+
+            using (StringWriter writer = new StringWriter(sb))
+            {
+                xmlSerializer.Serialize(writer, projects, namespaces);
+            }
+
+            return sb.ToString().TrimEnd();
         }
 
         public static string ExportMostBusiestEmployees(TeisterMaskContext context, DateTime date)
